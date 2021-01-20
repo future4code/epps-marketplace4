@@ -1,10 +1,18 @@
 import React from 'react'
-import { AppContainer } from './components/AppContainer'
+import PageRegisterProducts from './components/PageRegisterProducts'
+import ViewBuyProducts from './components/ViewBuyProducts'
 
-function App() {
-	return (
-        <AppContainer />
-	)
+
+
+
+
+export default class App extends React.Component{
+	render(){
+		return(
+			<div>
+				<PageRegisterProducts/>
+				
+			</div>
+		)
+	}
 }
-
-export default App
