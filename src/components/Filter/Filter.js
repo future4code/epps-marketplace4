@@ -27,7 +27,7 @@ export default class Filter extends React.Component {
                 <FilterDiv>
                     <label>Forma de pagamento</label>
                     <select>
-                        <option value=''>Todos os Produos</option>
+                        <option value=''>Todos os Produtos</option>
                         <option value=''>Sem juros</option>
                         <option value=''>Pronta Entrega</option>
                         <option value=''>Frete grátis</option>
