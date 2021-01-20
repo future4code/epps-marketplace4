@@ -11,6 +11,7 @@ const ProductContainer = styled.section`
   }
 `
 
+
 const Product = (props) => {
     return (
       <ProductContainer>
