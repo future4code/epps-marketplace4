@@ -1,5 +1,6 @@
 import React from 'react';
 import { LiCategory, SideBarStyle, HCategory } from './styleSideBar';
+import axios from 'axios';
 
 const listOfCategories = ["Acessórios", "Aniversário e Festas", "Bebê", "Bijuterias",
     "Bolsas e Carteiras", "Casa", "Casamento", "Convites", "Decoração", "Doces",
@@ -10,9 +11,30 @@ const listOfCategories = ["Acessórios", "Aniversário e Festas", "Bebê", "Biju
 // Os nomes devem ser iguais aos nomes dos produtos.
 
 export default class SideBar extends React.Component {
+    state={
+        listOfProducts: []
+    }
+    componentDidMount() {
+        this.getProducts()
+    }
+
+    getProducts = () => {
+        axios.get('https://us-central1-labenu-apis.cloudfunctions.net/eloFourTwo/products')
+            .then(response => {
+                this.setState({ listOfProducts: response.data.products })
+            }).catch(err => {
+                console.log(err)
+            })
+    }
+
 
     filterByCatefory = (category) =>{
-        console.log(category)
+        const provisoryList = this.state.listOfProducts.filter(product => {
+            if(category === product.category){
+                return product
+            }
+        })
+        console.log(provisoryList) // ESSE VALOR DEVE SER USADO PARA RENDERIZAR A PÁGINA DE PRODUTO
     }
 
     render() {
@@ -25,8 +47,6 @@ export default class SideBar extends React.Component {
             <SideBarStyle>
                 <HCategory>Categorias</HCategory>
                 {categories}
-
-
             </SideBarStyle>
         )
     }
