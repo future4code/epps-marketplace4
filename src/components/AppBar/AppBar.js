@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import logo from '../imagem/logo.png';
+// import logo from '../imagem/logo.png';
 import { Logo } from '../AppBar/styled';
 // import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
@@ -35,7 +35,7 @@ export default function ButtonAppBar() {
     <div>
       <AppBar position="static">
         <Toolbar>
-          <Logo src={logo}/>
+          <Logo />
           <Typography variant="h6" className={classes.title}></Typography>
           <MainInputSearch/>
           <div>

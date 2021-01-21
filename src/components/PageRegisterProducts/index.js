@@ -4,51 +4,47 @@ import axios from 'axios'
 
 
 const ContainerRegisterProduct = styled.div`
-width:50%;
-border:1px solid black;
-margin-top:50px;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:space-around;
-
-
+    width:50%;
+    border:1px solid black;
+    margin-top:50px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:space-around;
 `
 const InputProduct = styled.input`
-display:flex;
-align-items:center;
-justify-content:center;
-width:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:50%;
 `
 const ProductPayment = styled.div`
-
-width:50%;
-display:flex;
-align-items:center;
+    width:50%;
+    display:flex;
+    align-items:center;
 `
 const InputProdutPayment = styled.input`
-
-width:50vw;
-height:2vh;
+    width:50vw;
+    height:2vh;
 `
 const DetailsPayment = styled.div`
-width:50%;
-display:flex;
-justify-content:row;
-align-items:center;
+    width:50%;
+    display:flex;
+    justify-content:row;
+    align-items:center;
 `
 const InputLinkPhoto = styled.input`
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-width:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    width:50%;
 `
 const ButtonRegisterProduct = styled.button`
-width:50%;
-display:flex;
-justify-content:center;
-align-items:center;
+    width:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 `
 
 export default class VisibleProduct extends React.Component {
