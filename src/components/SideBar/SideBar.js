@@ -29,7 +29,7 @@ export default class SideBar extends React.Component {
 
 
     filterByCatefory = (category) =>{
-        const provisoryList = this.state.listOfProducts.filter(product =>{
+        const provisoryList = this.state.listOfProducts.filter(product => {
             if(category === product.category){
                 return product
             }
@@ -47,7 +47,6 @@ export default class SideBar extends React.Component {
             <SideBarStyle>
                 <HCategory>Categorias</HCategory>
                 {categories}
-
             </SideBarStyle>
         )
     }
