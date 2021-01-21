@@ -1,5 +1,8 @@
 import React from 'react'
 import  AppContainer from './components/AppContainer'
+// import ViewBuyProducts from './components/ViewBuyProducts'
+
+=======
 // import Header from "./components/Header"
 // import CssBaseline from '@material-ui/core/CssBaseline';
 // import { createMuiTheme } from "@material-ui/core";
@@ -19,6 +22,10 @@ import  AppContainer from './components/AppContainer'
 
 		return(
 			<div>
+
+				{/* <AppContainer/> */}
+				{/* <ViewBuyProducts /> */}
+
 				<AppContainer/>
 				{/* <CssBaseline/>
 				<ThemeProvider theme={theme}>
