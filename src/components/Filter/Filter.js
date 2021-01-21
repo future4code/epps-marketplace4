@@ -2,14 +2,6 @@ import React from 'react';
 import { FilterContainer, InputPreco, FilterDiv } from "./styleFilter";
 import axios from 'axios';
 
-const listOfCategories = ["Acessórios", "Aniversário e Festas", "Bebê", "Bijuterias",
-    "Bolsas e Carteiras", "Casa", "Casamento", "Convites", "Decoração", "Doces",
-    "Eco", "Infantil", "Jogos e Brinquedos", "Jóias", "Lembrancinhas", "Papel e Cia",
-    "Pets", "Religiosos", "Roupas", "Saúde e Beleza", "Técnicas de Artesanato",
-    "Materiais para artesanato", "Bijuterias e acessórios", "Papel e scrapbooking",
-    "Patchwork e costura", "Ver todos"]
-// Os nomes devem ser iguais aos nomes dos produtos.
-
 export default class Filter extends React.Component {
     state = {
         minPriceValue: '',
@@ -17,7 +9,6 @@ export default class Filter extends React.Component {
         payTypeValue: "",
         orderByValue: "",
         listOfProducts: [],
-        listOfCategories: ['Todos os produtos']
     }
 
     handleMinPrice = (e) => {
