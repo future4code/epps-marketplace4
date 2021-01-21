@@ -22,6 +22,7 @@ export default class AppContainer extends React.Component {
             <BodyProducts/>
           </div>
        </MainContent>
+
      </div>
     )
   }
