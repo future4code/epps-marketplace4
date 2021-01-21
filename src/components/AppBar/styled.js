@@ -1,10 +1,12 @@
-// import { Typography } from '@material-ui/core';
-import styled from 'styled-components';
-
-    export const Logo = styled.img`
-        width: 100px;
-    `
+import { Typography } from '@material-ui/core';
+import Styled from 'styled-components';
 
 
 
-export default styled
+export const Logo = Styled.img`
+width: 100px;
+`
+
+
+
+export default Styled
