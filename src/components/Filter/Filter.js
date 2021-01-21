@@ -21,12 +21,12 @@ export default class Filter extends React.Component {
 
     handlePayType = (e) => {
         this.setState({ payTypeValue: e.target.value })
-        this.filterByPayType(e.target.value)
+        this.props.filterByPayType(e.target.value)
     }
 
     handleOrderBy = (e) => {
         this.setState({ orderByValue: e.target.value })
-        this.orderByPrice(e.target.value)
+        this.props.orderByPrice(e.target.value)
     }
 
     componentDidMount() {
@@ -42,68 +42,68 @@ export default class Filter extends React.Component {
             })
     }
 
-    filterByPrice = () => {
-        console.log('Minimo ', this.state.minPriceValue)
-        console.log('Máximo', this.state.maxPriceValue)
-        const minPrice = this.state.listOfProducts.filter(product => {
-            if (product.price > this.state.minPriceValue && product.price < this.state.maxPriceValue) {
-                if (product.price === "") {
-                    product.price = 0
-                }
-                return product
-            }
-        })
-        console.log(minPrice) // ESSE VALOR DEVE IR NO COMPONENTE DE CRIAR PRODUTOS
+    // filterByPrice = () => {
+    //     console.log('Minimo ', this.state.minPriceValue)
+    //     console.log('Máximo', this.state.maxPriceValue)
+    //     const minPrice = this.state.listOfProducts.filter(product => {
+    //         if (product.price > this.state.minPriceValue && product.price < this.state.maxPriceValue) {
+    //             if (product.price === "") {
+    //                 product.price = 0
+    //             }
+    //             return product
+    //         }
+    //     })
+    //     console.log(minPrice) // ESSE VALOR DEVE IR NO COMPONENTE DE CRIAR PRODUTOS
        
-    }
+    // }
 
-    filterByPayType = (typeOfPayment) => {
-        console.log('payType', typeOfPayment)
-        const payType = this.state.listOfProducts.filter(product => {
-            if(typeOfPayment === 'all') {
-                return product
-            }
-            if (product.paymentMethod === typeOfPayment) {
-                return product
-            }
-        })
-        console.log(payType) // ESSE VALOR DEVE IR NO COMPONENTE DE CRIAR PRODUTOS
-    }
+    // filterByPayType = (typeOfPayment) => {
+    //     console.log('payType', typeOfPayment)
+    //     const payType = this.state.listOfProducts.filter(product => {
+    //         if(typeOfPayment === 'all') {
+    //             return product
+    //         }
+    //         if (product.paymentMethod === typeOfPayment) {
+    //             return product
+    //         }
+    //     })
+    //     console.log(payType) // ESSE VALOR DEVE IR NO COMPONENTE DE CRIAR PRODUTOS
+    // }
 
-    orderByPrice =(orderBy) =>{
-        if(orderBy === 'lowerPrice'){
-            this.orderByLowerPrice()
-        }else if(orderBy === 'higherPrice'){
-            this.orderByHigherPrice()
-        }else if(orderBy === 'name'){
-            this.orderByName()
-            console.log('Foi o name')
-        }
-    }
+    // orderByPrice =(orderBy) =>{
+    //     if(orderBy === 'lowerPrice'){
+    //         this.orderByLowerPrice()
+    //     }else if(orderBy === 'higherPrice'){
+    //         this.orderByHigherPrice()
+    //     }else if(orderBy === 'name'){
+    //         this.orderByName()
+    //         console.log('Foi o name')
+    //     }
+    // }
 
-    orderByLowerPrice = () =>{
-        let listProvisory = [...this.state.listOfProducts]
-        listProvisory.sort(function(a,b){
-            return Number(a.price) - Number(b.price)
-        })
-        console.log(listProvisory)
-    }
+    // orderByLowerPrice = () =>{
+    //     let listProvisory = [...this.state.listOfProducts]
+    //     listProvisory.sort(function(a,b){
+    //         return Number(a.price) - Number(b.price)
+    //     })
+    //     console.log(listProvisory)
+    // }
 
-    orderByHigherPrice = () =>{
-        let listProvisory = [...this.state.listOfProducts]
-        listProvisory.sort(function(a,b){
-            return Number(b.price) - Number(a.price)  
-        })
-        console.log(listProvisory)
-    }
+    // orderByHigherPrice = () =>{
+    //     let listProvisory = [...this.state.listOfProducts]
+    //     listProvisory.sort(function(a,b){
+    //         return Number(b.price) - Number(a.price)  
+    //     })
+    //     console.log(listProvisory)
+    // }
 
-    orderByName = () =>{
-        let listProvisory = [...this.state.listOfProducts]
-        listProvisory.sort(function(a,b){
-            return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0)
-        })
-        console.log(listProvisory)
-    }
+    // orderByName = () =>{
+    //     let listProvisory = [...this.state.listOfProducts]
+    //     listProvisory.sort(function(a,b){
+    //         return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0)
+    //     })
+    //     console.log(listProvisory)
+    // }
 
     render() {
 
@@ -116,7 +116,7 @@ export default class Filter extends React.Component {
                     <label>Até</label>
                     <InputPreco type="text" onChange={this.handleMaxPrice} placeholder="R$"></InputPreco>
 
-                    <button onClick={this.filterByPrice}>Filtrar</button>
+                    <button onClick={()=>this.props.filterByPrice(this.state.minPriceValue, this.state.maxPriceValue)}>Filtrar</button>
                 </FilterDiv>
                 <FilterDiv>
                     <label>Forma de pagamento</label>
