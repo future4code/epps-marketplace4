@@ -34,7 +34,6 @@ export default function ButtonAppBar() {
     <div>
       <AppBar position="static">
         <Toolbar>
-          <Logo />
           <Typography variant="h6" className={classes.title}></Typography>
           <MainInputSearch/>
           <div>
