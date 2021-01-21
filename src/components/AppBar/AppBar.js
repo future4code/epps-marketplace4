@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 // import logo from '../imagem/logo.png';
-import { Logo } from '../AppBar/styled';
 // import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 // import logo from '../imagem/user-logo.png';
