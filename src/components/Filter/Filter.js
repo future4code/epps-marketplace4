@@ -84,6 +84,9 @@ export default class Filter extends React.Component {
             this.orderByLowerPrice()
         }else if(orderBy === 'higherPrice'){
             this.orderByHigherPrice()
+        }else if(orderBy === 'name'){
+            this.orderByName()
+            console.log('Foi o name')
         }
     }
 
@@ -99,6 +102,14 @@ export default class Filter extends React.Component {
         let listProvisory = [...this.state.listOfProducts]
         listProvisory.sort(function(a,b){
             return Number(b.price) - Number(a.price)  
+        })
+        console.log(listProvisory)
+    }
+
+    orderByName = () =>{
+        let listProvisory = [...this.state.listOfProducts]
+        listProvisory.sort(function(a,b){
+            return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0)
         })
         console.log(listProvisory)
     }
@@ -131,6 +142,7 @@ export default class Filter extends React.Component {
                         <option value=''>Relevância</option>
                         <option value='lowerPrice'>Menor Preço</option>
                         <option value='higherPrice'>Maior Preço</option>
+                        <option value='name'>Nome</option>                        
                     </select>
                 </FilterDiv>
 
