@@ -9,6 +9,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "bootstrap": "^4.6.0",
     "components": "^0.1.0",
     "i": "^0.3.6",
     "jss": "^10.1.1",
@@ -16,12 +17,7 @@
     "react-dom": "^16.13.1",
     "react-jss": "8.0.0",
     "react-scripts": "^3.4.3",
-<<<<<<< HEAD
-    "styled": "^1.0.0",
-    "styled-components": "^5.1.0"
-=======
     "styled-components": "^5.2.1"
->>>>>>> 2ac9ff0fa113efa5d87fed503b887b021ac74905
   },
   "scripts": {
     "start": "react-scripts start",
