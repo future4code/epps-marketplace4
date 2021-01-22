@@ -5,13 +5,14 @@ import Select from './Select/Select';
 import InputSearch from './InputSearch';
 import { FilterContainer, InputPreco, FilterDivContainer, FilterDiv } from "./styleFilter";
 
+// formas de pagamento foi excluido
+// const optionsPayType=[
+//     {value: "all", label:"Métodos de pagamento"},
+//     {value: "card", label:"Cartão de crédito"},
+//     {value: "money", label:"Dinheiro"},
+//     {value: "app", label:"PagSeguro"},
+// ]
 
-const optionsPayType=[
-    {value: "all", label:"Métodos de pagamento"},
-    {value: "card", label:"Cartão de crédito"},
-    {value: "money", label:"Dinheiro"},
-    {value: "app", label:"PagSeguro"},
-]
 const optionsOrderBy=[
     {value: "r", label:"Ordenar Por"},
     {value: "lowerPrice", label:"Menor Preço"},
@@ -36,10 +37,6 @@ export default class Filter extends React.Component {
         this.setState({ maxPriceValue: Number(e.target.value) })
     }
 
-    // handlePayType = (e) => {
-    //     this.setState({ payTypeValue: e.target.value })
-    //     this.props.filterByPayType(e.target.value)
-    // }
 
     handleOrderBy = (e) => {
         this.setState({ orderByValue: e.target.value })
@@ -49,9 +46,8 @@ export default class Filter extends React.Component {
         const listOfProducts = this.props.filterByPrice(minPrice,maxPrice)
         const listOfProducts2 = this.props.filterByPayType(this.state.payTypeValue, listOfProducts)
         const listOfProducts3 = this.props.orderByPrice(this.state.orderByValue, listOfProducts2)
-
-
     }
+
     render() {
         return (
             <FilterContainer>
@@ -63,17 +59,8 @@ export default class Filter extends React.Component {
                         <label>Até</label>
                         <InputPreco type="text" onChange={this.handleMaxPrice} placeholder="R$"></InputPreco>
 
-                        <button onClick={()=>this.props.filterByPrice(this.state.minPriceValue, this.state.maxPriceValue)}>Filtrar</button>
                     </FilterDiv>
-                    {/* <FilterDiv>
-                        <label>Forma de pagamento</label>
-                        <select onChange={this.handlePayType}>
-                            <option value="all">Todos os Produos</option>
-                            <option value='card'>Cartäo</option>
-                            <option value='1'>Pronta Entrega</option>
-                            <option value='2'>Frete grátis</option>
-                        </select>
-                    </FilterDiv> */}
+                    
                     <FilterDiv>
                         <label>Ordenar por</label>
                         <select onChange={this.handleOrderBy}>

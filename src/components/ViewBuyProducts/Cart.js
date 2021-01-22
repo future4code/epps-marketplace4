@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import ViewBuyProducts from './Index'
 
 const ProductCart = styled.div`
   background-color: #fff;

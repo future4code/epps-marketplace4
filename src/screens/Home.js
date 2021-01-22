@@ -17,7 +17,6 @@ export default class AppContainer extends React.Component {
      <div>
        <AppBar/>
        <MainContent>
-          <SideBar/>
           <BodyProducts goToDetail={this.props.goToDetail}/>
        </MainContent>
        <Footer/>
