@@ -5,7 +5,7 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import PinterestIcon from '@material-ui/icons/Pinterest';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import YouTubeIcon from '@material-ui/icons/YouTube';
-import CompraSegura from "./imagem/compra.jpg";
+
 import Logo from './imagem/logo.png';
 
 
