@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Filter from "./Filter/Filter";
+import ViewBuyProducts from "./ViewBuyProducts/Index";
 
 const BoxBodyProducts = styled.div`
     display: grid;
@@ -60,6 +61,10 @@ getProducts = () => {
     }).catch((error) => {
         console.log(error)
     })
+}
+
+buyProduct = () => {
+    this.setState(<ViewBuyProducts/>)
 }
 
 
@@ -132,10 +137,7 @@ orderByName = () =>{
     })
     console.log(listProvisory)
     this.setState({products: listProvisory}) 
-
 }
-
-
       
 
 render() {
@@ -159,7 +161,7 @@ render() {
                         <Paragraph fontsize="14">{product.installments}x de { product.installments =  product.price/product.installments} no Cartão</Paragraph>
                     </BodyRow>
                     <BodyRow>
-                        <Button>Adicionar ao carrinho</Button>
+                        <Button onClick={this.buyProduct}>Adicionar ao carrinho</Button>
                     </BodyRow>
                 </BodySpan>
                 )
