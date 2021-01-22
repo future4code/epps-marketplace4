@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export const FilterContainer = styled.div`
+    max-height: 20vh;
     background-color: #f2f2f2;
     padding:10px;
     display:flex;
-    flex-direction: column;
-    justify-content: space-around;
+    justify-items: space-around;
+    align-items: center;
 `;
 
 export const InputPreco = styled.input`

@@ -1,13 +1,30 @@
 import React from 'react';
+import axios from 'axios';
+import { Card } from '@material-ui/core';
+import Select from './Select/Select';
 import InputSearch from './InputSearch';
 import { FilterContainer, InputPreco, FilterDivContainer, FilterDiv } from "./styleFilter";
+
+
+const optionsPayType=[
+    {value: "all", label:"Métodos de pagamento"},
+    {value: "card", label:"Cartão de crédito"},
+    {value: "money", label:"Dinheiro"},
+    {value: "app", label:"PagSeguro"},
+]
+const optionsOrderBy=[
+    {value: "r", label:"Ordenar Por"},
+    {value: "lowerPrice", label:"Menor Preço"},
+    {value: "higherPrice", label:"Maior Preço"},
+    {value: "name", label:"Nome"},
+]
 
 export default class Filter extends React.Component {
     state = {
         minPriceValue: '',
         maxPriceValue: '',
-        payTypeValue: "",
-        orderByValue: "",
+        payTypeValue: "all",
+        orderByValue: "r",
         listOfProducts: [],
     }
 
@@ -26,11 +43,16 @@ export default class Filter extends React.Component {
 
     handleOrderBy = (e) => {
         this.setState({ orderByValue: e.target.value })
-        this.props.orderByPrice(e.target.value)
     }
 
-    render() {
+    onClickFilterFunctions = (minPrice, maxPrice) =>{
+        const listOfProducts = this.props.filterByPrice(minPrice,maxPrice)
+        const listOfProducts2 = this.props.filterByPayType(this.state.payTypeValue, listOfProducts)
+        const listOfProducts3 = this.props.orderByPrice(this.state.orderByValue, listOfProducts2)
 
+
+    }
+    render() {
         return (
             <FilterContainer>
                 <FilterDivContainer>
@@ -62,6 +84,8 @@ export default class Filter extends React.Component {
                         </select>
                     </FilterDiv>
                 </FilterDivContainer>
+
+                <button onClick={()=>this.onClickFilterFunctions(this.state.minPriceValue, this.state.maxPriceValue)}>Filtrar</button>
 
             </FilterContainer>
         )
