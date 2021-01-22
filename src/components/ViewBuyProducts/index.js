@@ -1,26 +1,15 @@
-import React from 'react'
+//Página da Gabi
+
+
+import React from "react";
 import styled from 'styled-components'
 import axios from 'axios'
-
-const ProductsCart = styled.div`
-    display: flex;
-    justify-content: center;
-    margin: 5px;
-    align-items: center;
-    text-align: center;
-`
-
-const CheckOutButton = styled.button`
-    display: flex;
-    justify-content: center;
-    margin: 5px;
-    align-items: center;
-    text-align: center;
-`
-
+import AppContainer from '../AppContainer'
+import DetailsPage from '../DetailsPage/index.js'
 
 export default class ViewBuyProducts extends React.Component {
     state = {
+     
         productsCart: [
             {
                 id: this.props.id,
@@ -53,10 +42,10 @@ export default class ViewBuyProducts extends React.Component {
 
     onChangeQuantity = (event)=>{
         this.setState({quantity: event.target.value})
-    }    
+    }
 
     totalPrice = () => {
-        let totalValue = 0 
+        let totalValue = 0
         for (let product of this.state.productsCart) {
             totalValue += product.price * product.quantity
         }
@@ -72,17 +61,16 @@ export default class ViewBuyProducts extends React.Component {
                     <p>{this.props.name}</p>
                     <p>{this.state.quantity}</p>
                     <p>{(this.props.price*this.state.quantity).toFixed(2)}</p> */}
-                   
-                
-                    
+
+
+
                     <h2> Carrinho de compras </h2>
                     {this.productsCart}
                     <p>Total: R$ {this.totalPrice}</p>
-                    
+
                 </ProductsCart>
                 <CheckOutButton>Finalizar compra</CheckOutButton>
             </div>
-            
+
         )
-    }
-}
+                  }}
