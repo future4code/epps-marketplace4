@@ -3,18 +3,36 @@ import styled from "styled-components";
 import axios from "axios";
 import Filter from "./Filter/Filter";
 import ViewBuyProducts from "./ViewBuyProducts/Index";
+import SideBar from "./SideBar/SideBar";
+import InputSearch from "./Filter/InputSearch";
 
-const BoxBodyProducts = styled.div`
+const Container = styled.div`
+    max-width: 100vw;
+    min-width:99vw;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr 1f 15fr;
+`;
+const BoxBodyProducts = styled.div`
+    
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     margin: 30px;
 `
 const BodySpan = styled.div`
     display: grid;
     grid-template-rows: 1fr 30px auto auto;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.161);
+    margin: 20px;
+    :hover{
+        box-shadow: 0px 3px 10px gray;
+    }
 `
-const BodyRow = styled.div``
+const BodyRow = styled.div`
+    cursor: pointer;
+    padding: 10px;
+`
 
 const Paragraph = styled.span`
     display: flex;
@@ -24,31 +42,41 @@ const Paragraph = styled.span`
     font-weight: ${props => props.bold};
     text-transform: ${props => props.uppercase};
 `
-const Button = styled.button`
-    color: rgb(71, 71, 71);
-    background-color: rgb(253, 194, 16);
-    border: none;
-    outline: none;
-    padding: 5px 30px;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-size: 12px;
-    width: 100%;
-`
+// const Button = styled.button`
+//     color: rgb(71, 71, 71);
+//     background-color: rgb(253, 194, 16);
+//     border: none;
+//     outline: none;
+//     padding: 5px 30px;
+//     cursor: pointer;
+//     text-transform: uppercase;
+//     font-size: 12px;
+//     width: 100%;
+// `
 const Image = styled.img`
     width: 100%;
     height: 200px;
+    cursor: pointer;
 `
 
 class BodyProducts extends React.Component {
+
 state = {
     products: [],
-    allProductsFixed: []
+    allProductsFixed: [],
+    productsFilterByPrice: [],
 }
 
 componentDidMount = () => {
     this.getProducts()
-    this.setState({lengthOfProducts: this.state.products.length})
+}
+saveInLocalStorage = (products) => {
+    localStorage.setItem("products", JSON.stringify(products))
+}
+getLocalStorage = () => {
+    const stringNew = localStorage.getItem("products")
+    let newProducts = JSON.parse(stringNew)
+    this.props.getListOfProducts(newProducts)  
 }
 
 getProducts = () => { 
@@ -58,6 +86,7 @@ getProducts = () => {
     .then((response) => {
         this.setState({products: response.data.products,
             allProductsFixed: response.data.products})
+        this.saveInLocalStorage(response.data.products)
     }).catch((error) => {
         console.log(error)
     })
@@ -69,6 +98,7 @@ buyProduct = () => {
 
 
 filterByPrice = (minPrice = 0, maxPrice) => {
+   
     if(maxPrice === 0 || maxPrice === ""){
         maxPrice = Infinity
     }
@@ -80,13 +110,14 @@ filterByPrice = (minPrice = 0, maxPrice) => {
             return product
         }
     })
-    console.log(price) // ESSE VALOR DEVE IR NO COMPONENTE DE CRIAR PRODUTOS
-    this.setState({products: price}) 
+
+    return price
 }
 
-filterByPayType = (typeOfPayment) => {
-    console.log('payType', typeOfPayment)
-    const payType = this.state.allProductsFixed.filter(product => {
+
+filterByPayType = (typeOfPayment, listProducts) => {
+    const payType = listProducts.filter(product => {
+
         if(typeOfPayment === 'all') {
             return product
         }
@@ -94,65 +125,114 @@ filterByPayType = (typeOfPayment) => {
             return product
         }
     })
-    console.log(payType) // ESSE VALOR DEVE IR NO COMPONENTE DE CRIAR PRODUTOS
-    this.setState({products: payType}) 
-
+    return payType
+    
 }
 
-orderByPrice =(orderBy) =>{
+orderByPrice =(orderBy, listProducts) =>{
+    
     if(orderBy === 'lowerPrice'){
-        this.orderByLowerPrice()
+        this.orderByLowerPrice(listProducts)
     }else if(orderBy === 'higherPrice'){
-        this.orderByHigherPrice()
+        this.orderByHigherPrice(listProducts)
     }else if(orderBy === 'name'){
-        this.orderByName()
-        console.log('Foi o name')
+        this.orderByName(listProducts)
+    } else{
+        this.setState({products: listProducts})
+        return listProducts
     }
+
 }
 
-orderByLowerPrice = () =>{
-    let listProvisory = [...this.state.allProductsFixed]
-    listProvisory.sort(function(a,b){
+orderByLowerPrice = (listProducts) =>{
+
+    listProducts.sort(function(a,b){
         return Number(a.price) - Number(b.price)
     })
-    console.log(listProvisory)
-    this.setState({products: listProvisory}) 
-
+    this.setState({products: listProducts}) 
+    return listProducts
 }
 
-orderByHigherPrice = () =>{
-    let listProvisory = [...this.state.allProductsFixed]
-    listProvisory.sort(function(a,b){
+orderByHigherPrice = (listProducts) =>{
+    listProducts.sort(function(a,b){
         return Number(b.price) - Number(a.price)  
-    })
-    console.log(listProvisory)
-    this.setState({products: listProvisory}) 
-
+    })    
+    this.setState({products: listProducts}) 
+    return listProducts
 }
 
-orderByName = () =>{
-    let listProvisory = [...this.state.allProductsFixed]
-    listProvisory.sort(function(a,b){
+orderByName = (listProducts) =>{
+
+    listProducts.sort(function(a,b){
         return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0)
     })
-    console.log(listProvisory)
-    this.setState({products: listProvisory}) 
+
+    this.setState({products: listProducts})
+    return listProducts
 }
-      
+
+filterByCategory = (category) =>{
+        const provisoryList = this.state.allProductsFixed.filter(product => {
+            if(category === product.category){
+                return product
+            }
+        })
+        console.log(provisoryList)
+        this.setState({products: provisoryList})
+    }
+
+
+// filterBySearch = (nameProduct) => {
+//     const searchName = this.state.allProductsFixed.filter(product => {
+//         if(nameProduct === 'all') {
+//             return product
+//         }
+//         if (product.name === nameProduct) {
+//             return product
+//         }
+//     })
+//     console.log(searchName) // ESSE VALOR DEVE IR NO COMPONENTE DE CRIAR PRODUTOS
+//     this.setState({products: searchName}) 
+
+// }
+
+filterBySearch = (nameProducts) => {
+    // console.log("ok", nameProduct)
+    const searchName = this.state.allProductsFixed.filter((product) => {
+        const nameProduct = product.name.toLowerCase()
+        console.log(nameProduct)
+        return nameProduct.includes(nameProducts.toLowerCase())
+      })
+    
+    this.setState({products: searchName}) 
+
+}
 
 render() {
+    console.log(this.state.products)
     return (
-    <div>
+
+    <Container>
+        
+        <SideBar
+        filterByCategory ={this.filterByCategory}
+        />
+        <InputSearch filterBySearch={this.filterBySearch} />
         <Filter
         filterByPrice={this.filterByPrice}
         filterByPayType = {this.filterByPayType}
         orderByPrice={this.orderByPrice}
+        updateType={this.state.upadateType}
+        updateOrder ={this.state.updateOrder}
+        
         />
         <BoxBodyProducts>
             {this.state.products.map((product) => {
                 return(
-                <BodySpan>
-                    <Image src={product.photos[0]} />
+                <BodySpan key={product.id}>                 
+                    {/* <BodyRow> */}
+                        <Image src={product.photos[0]} />
+                    {/* </BodyRow> */}
                     <BodyRow>
                         <Paragraph fontsize="18" bold="bold" uppercase="uppercase">{product.name}</Paragraph>
                     </BodyRow>
@@ -163,13 +243,14 @@ render() {
                     <BodyRow>
                         <Button onClick={this.buyProduct}>Adicionar ao carrinho</Button>
                     </BodyRow>
+
                 </BodySpan>
                 )
                 
             })
             }
         </BoxBodyProducts>
-        </div>
+        </Container>
     )
 }
 }

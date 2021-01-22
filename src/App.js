@@ -7,29 +7,10 @@ import  AppContainer from './components/AppContainer'
 // import {ThemeProvider} from "@material-ui/core";
 
 
+import  AppContainer from './screens/Home'
+
 	export default function App() {
-		
-		// const theme = createMuiTheme({
-		// 	palette: {
-		// 		primary: {
-		// 			main: '#F28C0F'
-		// 		},
-			
-		// 	}
-		// }); 
-
 		return(
-			<div>
-
-				{/* <AppContainer/> */}
-				{/* <ViewBuyProducts /> */}
-
-				<AppContainer/>
-				{/* <CssBaseline/>
-				<ThemeProvider theme={theme}>
-					<Header/>
-					 
-				</ThemeProvider>*/}
-			</div>
+			<AppContainer/>
 		)
 	}
