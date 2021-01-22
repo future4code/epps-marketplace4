@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import AppBar from '../components/AppBar/AppBar'
 import SideBar from '../components/SideBar/SideBar'
 import BodyProducts from '../components/BodyProducts'
-import Filter from '../components/Filter/Filter'
 
 const MainContent = styled.div`
   display: grid;
@@ -17,12 +16,8 @@ export default class AppContainer extends React.Component {
        <AppBar/>
        <MainContent>
           <SideBar/>
-          <div>
-            <Filter/>
-            <BodyProducts/>
-          </div>
+          <BodyProducts/>
        </MainContent>
-
      </div>
     )
   }

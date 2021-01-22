@@ -1,6 +1,8 @@
 import React from 'react';
-import { FilterContainer, InputPreco, FilterDiv } from "./styleFilter";
-import axios from 'axios';
+import InputSearch from './InputSearch';
+import { FilterContainer, InputPreco, FilterDivContainer, FilterDiv } from "./styleFilter";
+// import axios from 'axios';
+// import InputSearch from './InputSearch'
 
 export default class Filter extends React.Component {
     state = {
@@ -29,18 +31,22 @@ export default class Filter extends React.Component {
         this.props.orderByPrice(e.target.value)
     }
 
-    componentDidMount() {
-        this.getProducts()
-    }
 
-    getProducts = () => {
-        axios.get('https://us-central1-labenu-apis.cloudfunctions.net/eloFourTwo/products')
-            .then(response => {
-                this.setState({ listOfProducts: response.data.products })
-            }).catch(err => {
-                console.log(err)
-            })
-    }
+
+    
+
+    // componentDidMount() {
+    //     this.getProducts()
+    // }
+
+    // getProducts = () => {
+    //     axios.get('https://us-central1-labenu-apis.cloudfunctions.net/eloFourTwo/products')
+    //         .then(response => {
+    //             this.setState({ listOfProducts: response.data.products })
+    //         }).catch(err => {
+    //             console.log(err)
+    //         })
+    // }
 
     // filterByPrice = () => {
     //     console.log('Minimo ', this.state.minPriceValue)
@@ -109,33 +115,35 @@ export default class Filter extends React.Component {
 
         return (
             <FilterContainer>
-                <FilterDiv>
-                    <label>Preço</label>
-                    <InputPreco type="text" onChange={this.handleMinPrice} placeholder="R$"></InputPreco>
+                <FilterDivContainer>
+                    <FilterDiv>
+                        <label>Preço</label>
+                        <InputPreco type="text" onChange={this.handleMinPrice} placeholder="R$"></InputPreco>
 
-                    <label>Até</label>
-                    <InputPreco type="text" onChange={this.handleMaxPrice} placeholder="R$"></InputPreco>
+                        <label>Até</label>
+                        <InputPreco type="text" onChange={this.handleMaxPrice} placeholder="R$"></InputPreco>
 
-                    <button onClick={()=>this.props.filterByPrice(this.state.minPriceValue, this.state.maxPriceValue)}>Filtrar</button>
-                </FilterDiv>
-                <FilterDiv>
-                    <label>Forma de pagamento</label>
-                    <select onChange={this.handlePayType}>
-                        <option value="all">Todos os Produos</option>
-                        <option value='card'>Cartäo</option>
-                        <option value='1'>Pronta Entrega</option>
-                        <option value='2'>Frete grátis</option>
-                    </select>
-                </FilterDiv>
-                <FilterDiv>
-                    <label>Ordenar por</label>
-                    <select onChange={this.handleOrderBy}>
-                        <option value=''>Relevância</option>
-                        <option value='lowerPrice'>Menor Preço</option>
-                        <option value='higherPrice'>Maior Preço</option>
-                        <option value='name'>Nome</option>                        
-                    </select>
-                </FilterDiv>
+                        <button onClick={()=>this.props.filterByPrice(this.state.minPriceValue, this.state.maxPriceValue)}>Filtrar</button>
+                    </FilterDiv>
+                    <FilterDiv>
+                        <label>Forma de pagamento</label>
+                        <select onChange={this.handlePayType}>
+                            <option value="all">Todos os Produos</option>
+                            <option value='card'>Cartäo</option>
+                            <option value='1'>Pronta Entrega</option>
+                            <option value='2'>Frete grátis</option>
+                        </select>
+                    </FilterDiv>
+                    <FilterDiv>
+                        <label>Ordenar por</label>
+                        <select onChange={this.handleOrderBy}>
+                            <option value=''>Relevância</option>
+                            <option value='lowerPrice'>Menor Preço</option>
+                            <option value='higherPrice'>Maior Preço</option>
+                            <option value='name'>Nome</option>                        
+                        </select>
+                    </FilterDiv>
+                </FilterDivContainer>
 
             </FilterContainer>
         )
