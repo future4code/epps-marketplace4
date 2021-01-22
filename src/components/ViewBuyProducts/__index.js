@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
 import Cart from './Cart'
 import AppContainer from '../AppContainer'
 import DetailsPage from '../DetailsPage/index.js'
@@ -12,6 +11,8 @@ const ProductsCart = styled.div`
     align-items: center;
     text-align: center;
 `
+
+const CheckOutButton = styled.button``
 //Página da Gabi
 
 class ViewBuyProducts extends React.Component {
@@ -36,20 +37,16 @@ class ViewBuyProducts extends React.Component {
             newCart[0].quantity += 1;
         } else {
             const newObject = {
-            id: product.id,
-            name: product.name,
-            value: product.price,
-            quantity: 1,
+                id: product.id,
+                name: product.name,
+                value: product.price,
+                quantity: 1,
+            }
+            
+            newCart.push(newObject);
         }
-        newCart.push(newObject);
-    }
         this.setState({ cart: newCart });
     }
-
-    addProduct = () => {
-
-    }
-    subtractProduct = () => {
 
     totalPrice = () => {
         let totalValue = 0

@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Filter from "./Filter/Filter";
-import ViewBuyProducts from "./ViewBuyProducts/Index";
 import SideBar from "./SideBar/SideBar";
 import InputSearch from "./Filter/InputSearch";
 
@@ -42,17 +41,17 @@ const Paragraph = styled.span`
     font-weight: ${props => props.bold};
     text-transform: ${props => props.uppercase};
 `
-// const Button = styled.button`
-//     color: rgb(71, 71, 71);
-//     background-color: rgb(253, 194, 16);
-//     border: none;
-//     outline: none;
-//     padding: 5px 30px;
-//     cursor: pointer;
-//     text-transform: uppercase;
-//     font-size: 12px;
-//     width: 100%;
-// `
+const Button = styled.button`
+    color: rgb(71, 71, 71);
+    background-color: rgb(253, 194, 16);
+    border: none;
+    outline: none;
+    padding: 5px 30px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 12px;
+    width: 100%;
+`
 const Image = styled.img`
     width: 100%;
     height: 200px;
@@ -70,9 +69,11 @@ state = {
 componentDidMount = () => {
     this.getProducts()
 }
+
 saveInLocalStorage = (products) => {
     localStorage.setItem("products", JSON.stringify(products))
 }
+
 getLocalStorage = () => {
     const stringNew = localStorage.getItem("products")
     let newProducts = JSON.parse(stringNew)
@@ -92,10 +93,9 @@ getProducts = () => {
     })
 }
 
-buyProduct = () => {
-    this.setState(<ViewBuyProducts/>)
-}
-
+// buyProduct = () => {
+//     this.setState(<ViewBuyProducts/>)
+// }
 
 filterByPrice = (minPrice = 0, maxPrice) => {
    
@@ -103,7 +103,7 @@ filterByPrice = (minPrice = 0, maxPrice) => {
         maxPrice = Infinity
     }
     const price = this.state.allProductsFixed.filter(product => {
-        if (product.price > minPrice && product.price < maxPrice) {
+        if (product.price >= minPrice && product.price <= maxPrice) {
             if (product.price === "") {
                 product.price = 0
             }
@@ -182,20 +182,6 @@ filterByCategory = (category) =>{
     }
 
 
-// filterBySearch = (nameProduct) => {
-//     const searchName = this.state.allProductsFixed.filter(product => {
-//         if(nameProduct === 'all') {
-//             return product
-//         }
-//         if (product.name === nameProduct) {
-//             return product
-//         }
-//     })
-//     console.log(searchName) // ESSE VALOR DEVE IR NO COMPONENTE DE CRIAR PRODUTOS
-//     this.setState({products: searchName}) 
-
-// }
-
 filterBySearch = (nameProducts) => {
     // console.log("ok", nameProduct)
     const searchName = this.state.allProductsFixed.filter((product) => {
@@ -209,16 +195,16 @@ filterBySearch = (nameProducts) => {
 }
 
 render() {
-    console.log(this.props.goToDetail()) 
-    console.log(this.state.products)
     return (
 
     <Container>
         
         <SideBar
-        filterByCategory ={this.filterByCategory}
+            filterByCategory ={this.filterByCategory}
         />
+
         <InputSearch filterBySearch={this.filterBySearch} />
+
         <Filter
         filterByPrice={this.filterByPrice}
         filterByPayType = {this.filterByPayType}
