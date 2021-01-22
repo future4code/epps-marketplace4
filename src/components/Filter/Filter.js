@@ -45,7 +45,7 @@ export default class Filter extends React.Component {
     onClickFilterFunctions = (minPrice, maxPrice) =>{
         const listOfProducts = this.props.filterByPrice(minPrice,maxPrice)
         const listOfProducts2 = this.props.filterByPayType(this.state.payTypeValue, listOfProducts)
-        const listOfProducts3 = this.props.orderByPrice(this.state.orderByValue, listOfProducts2)
+        this.props.orderByPrice(this.state.orderByValue, listOfProducts2)
     }
 
     render() {

@@ -10,7 +10,7 @@ const Container = styled.div`
     min-width:99vw;
     display: grid;
     grid-template-columns: 1fr 4fr;
-    grid-template-rows: 1fr 1f 15fr;
+    grid-template-rows: 10vh 10vh 1fr;
 `;
 const BoxBodyProducts = styled.div`
     
@@ -21,6 +21,7 @@ const BoxBodyProducts = styled.div`
 `
 const BodySpan = styled.div`
     display: grid;
+    max-height: 300px;
     grid-template-rows: 1fr 30px auto auto;
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.161);
     margin: 20px;
@@ -183,7 +184,6 @@ filterByCategory = (category) =>{
 
 
 filterBySearch = (nameProducts) => {
-    // console.log("ok", nameProduct)
     const searchName = this.state.allProductsFixed.filter((product) => {
         const nameProduct = product.name.toLowerCase()
         console.log(nameProduct)
