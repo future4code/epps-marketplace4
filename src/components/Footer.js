@@ -6,6 +6,7 @@ import PinterestIcon from '@material-ui/icons/Pinterest';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import CompraSegura from "./imagem/compra.jpg";
+import Logo from './imagem/logo.png';
 
 
 import {
@@ -13,6 +14,8 @@ import {
   FooterTitle,
   SocialMediaIcon,
   StyledToolBar,
+  SectionLogo,
+  ImgLogo,
   
 } from "./Footer-styled";
 import FooterBar from "@material-ui/core/AppBar";
@@ -51,12 +54,12 @@ export class Footer extends React.Component {
           <StyledToolBar>
             <div>
                 
-              <p> Elo4 2021 © Todos os direitos reservados. </p>
+              <p> Copyright ©  Elo4 2021   </p>
               
             </div>
            
             <SocialMediaContainer>
-              <FooterTitle>Contato</FooterTitle>
+              <FooterTitle>Nos siga nas Redes Sociais</FooterTitle>
                  <SocialMediaIcon>
                 <FacebookIcon onClick={this.redirecionarFacebook} />
                 <TwitterIcon onClick={this.redirecionarTwitter} />
@@ -64,8 +67,12 @@ export class Footer extends React.Component {
                 <PinterestIcon onClick={this.redirecionarPinterest}/>
                 <LinkedInIcon onClick={this.redirecionarLinkedin}/>
                 <YouTubeIcon onClick={this.redirecionarYoutube}/>
+                
               </SocialMediaIcon>
             </SocialMediaContainer>
+            <SectionLogo>
+            <ImgLogo src={Logo} />
+          </SectionLogo>
           </StyledToolBar>
           
         </FooterBar>
