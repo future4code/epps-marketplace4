@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 import MainInputSearch from './InputSearch'
+import AppBarLink from './AppBarLink';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +35,7 @@ export default function ButtonAppBar() {
     <div>
       <AppBar position="static">
         <Toolbar>
+          <AppBarLink />
           <Typography variant="h6" className={classes.title}></Typography>
           <MainInputSearch/>
           <div>
