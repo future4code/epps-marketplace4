@@ -230,13 +230,13 @@ render() {
                     <BodyRow>
                         <Button onClick={this.buyProduct}>Adicionar ao carrinho</Button>
                     </BodyRow>
-
                 </BodySpan>
                 )
-                
             })
             }
+            {this.state.products.length < 1 && <p>Seleção inexistente</p>}
         </BoxBodyProducts>
+
         </Container>
     )
 }
