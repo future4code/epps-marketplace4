@@ -2,6 +2,7 @@ import React from "react"
 import styled from 'styled-components'
 import AppBar from './AppBar/AppBar'
 import BodyProducts from './BodyProducts'
+import ViewBuyProducts from './ViewBuyProducts/Index'
 
 const MainContent = styled.div`
   display: grid;
@@ -12,10 +13,11 @@ export default class AppContainer extends React.Component {
   render () {
     return (
      <div>
-       <AppBar/>
+       {/* <AppBar/>
        <MainContent>
           <BodyProducts/>
-       </MainContent>
+       </MainContent> */}
+       <ViewBuyProducts/>
      </div>
     )
   }
