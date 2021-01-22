@@ -10,13 +10,14 @@ const MainContent = styled.div`
 `
 export default class AppContainer extends React.Component {
 
+
   render () {
     return (
      <div>
        <AppBar/>
        <MainContent>
           <SideBar/>
-          <BodyProducts/>
+          <BodyProducts goToDetail={this.props.goToDetail}/>
        </MainContent>
      </div>
     )

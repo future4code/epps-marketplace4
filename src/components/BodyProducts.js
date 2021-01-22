@@ -169,6 +169,7 @@ filterBySearch = (nameProducts) => {
 }
 
 render() {
+    console.log(this.props.goToDetail()) 
     return (
     <div >
         
@@ -185,7 +186,7 @@ render() {
                 return(
                 <BodySpan key={product.id}>                 
                     {/* <BodyRow> */}
-                        <Image src={product.photos[0]} />
+                        <Image onClick={() => this.props.goToDetail(product.id)} src={product.photos[0]} />
                     {/* </BodyRow> */}
                     <BodyRow>
                         <Paragraph fontsize="18" bold="bold" uppercase="uppercase">{product.name}</Paragraph>
