@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const FilterContainer = styled.div`
-    max-height: 20vh;
+    max-height: 10vh;
     background-color: #f2f2f2;
     padding:10px;
     display:flex;

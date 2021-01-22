@@ -45,29 +45,10 @@ export default class Filter extends React.Component {
         this.setState({ orderByValue: e.target.value })
     }
 
-
-
-    
-
-    // componentDidMount() {
-    //     this.getProducts()
-    // }
-
-    // getProducts = () => {
-    //     axios.get('https://us-central1-labenu-apis.cloudfunctions.net/eloFourTwo/products')
-    //         .then(response => {
-    //             this.setState({ listOfProducts: response.data.products })
-    //         }).catch(err => {
-    //             console.log(err)
-    //         })
-    // }
-
     onClickFilterFunctions = (minPrice, maxPrice) =>{
         const listOfProducts = this.props.filterByPrice(minPrice,maxPrice)
         const listOfProducts2 = this.props.filterByPayType(this.state.payTypeValue, listOfProducts)
-        const listOfProducts3 = this.props.orderByPrice(this.state.orderByValue, listOfProducts2)
-
-
+        this.props.orderByPrice(this.state.orderByValue, listOfProducts2)
     }
 
     render() {
