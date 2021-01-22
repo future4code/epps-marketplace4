@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const SideBarStyle = styled.div`
     background-color: #f2f2f2;
     padding: 3vw;
-    grid-row: 1/3;
+    grid-row: 1/4;
     grid-column: 1/2;
 `
 

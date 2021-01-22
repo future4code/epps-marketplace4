@@ -36,7 +36,7 @@ export default class SideBar extends React.Component {
     //     })
     //     console.log(provisoryList, category) // ESSE VALOR DEVE SER USADO PARA RENDERIZAR A PÁGINA DE PRODUTO
     // }
-
+    
     render() {
         let categories = listOfCategories.map(category => {
             return (

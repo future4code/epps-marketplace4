@@ -14,6 +14,13 @@ export const InputPreco = styled.input`
     width: 40px;
 `;
 
+export const FilterDivContainer = styled.div`
+     display:flex;
+     
+    justify-content: center;
+    align-items: center;
+`
+
 export const FilterDiv = styled.div`
     flex-grow:1;
     display: flex;

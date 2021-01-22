@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { FilterContainer, InputPreco, FilterDiv } from "./styleFilter";
 import axios from 'axios';
 import { Card } from '@material-ui/core';
 import Select from './Select/Select';
+import InputSearch from './InputSearch';
+
 
 const optionsPayType=[
     {value: "all", label:"Métodos de pagamento"},
@@ -16,6 +19,7 @@ const optionsOrderBy=[
     {value: "higherPrice", label:"Maior Preço"},
     {value: "name", label:"Nome"},
 ]
+
 export default class Filter extends React.Component {
     state = {
         minPriceValue: '',
@@ -41,18 +45,22 @@ export default class Filter extends React.Component {
         this.setState({ orderByValue: e.target.value })
     }
 
-    componentDidMount() {
-        this.getProducts()
-    }
 
-    getProducts = () => {
-        axios.get('https://us-central1-labenu-apis.cloudfunctions.net/eloFourTwo/products')
-            .then(response => {
-                this.setState({ listOfProducts: response.data.products })
-            }).catch(err => {
-                console.log(err)
-            })
-    }
+
+    
+
+    // componentDidMount() {
+    //     this.getProducts()
+    // }
+
+    // getProducts = () => {
+    //     axios.get('https://us-central1-labenu-apis.cloudfunctions.net/eloFourTwo/products')
+    //         .then(response => {
+    //             this.setState({ listOfProducts: response.data.products })
+    //         }).catch(err => {
+    //             console.log(err)
+    //         })
+    // }
 
     onClickFilterFunctions = (minPrice, maxPrice) =>{
         const listOfProducts = this.props.filterByPrice(minPrice,maxPrice)
@@ -66,6 +74,7 @@ export default class Filter extends React.Component {
 
         return (
             <FilterContainer>
+
                 <FilterDiv>
                     <label>Preço</label>
                     <InputPreco type="text" onChange={this.handleMinPrice} placeholder="R$"></InputPreco>
