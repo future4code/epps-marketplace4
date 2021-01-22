@@ -42,17 +42,17 @@ const Paragraph = styled.span`
     font-weight: ${props => props.bold};
     text-transform: ${props => props.uppercase};
 `
-// const Button = styled.button`
-//     color: rgb(71, 71, 71);
-//     background-color: rgb(253, 194, 16);
-//     border: none;
-//     outline: none;
-//     padding: 5px 30px;
-//     cursor: pointer;
-//     text-transform: uppercase;
-//     font-size: 12px;
-//     width: 100%;
-// `
+const Button = styled.button`
+    color: rgb(71, 71, 71);
+    background-color: rgb(253, 194, 16);
+    border: none;
+    outline: none;
+    padding: 5px 30px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 12px;
+    width: 100%;
+`
 const Image = styled.img`
     width: 100%;
     height: 200px;
@@ -70,9 +70,11 @@ state = {
 componentDidMount = () => {
     this.getProducts()
 }
+
 saveInLocalStorage = (products) => {
     localStorage.setItem("products", JSON.stringify(products))
 }
+
 getLocalStorage = () => {
     const stringNew = localStorage.getItem("products")
     let newProducts = JSON.parse(stringNew)
@@ -92,6 +94,9 @@ getProducts = () => {
     })
 }
 
+// buyProduct = () => {
+//     this.setState(<ViewBuyProducts/>)
+// }
 
 filterByPrice = (minPrice = 0, maxPrice) => {
    
@@ -99,7 +104,7 @@ filterByPrice = (minPrice = 0, maxPrice) => {
         maxPrice = Infinity
     }
     const price = this.state.allProductsFixed.filter(product => {
-        if (product.price > minPrice && product.price < maxPrice) {
+        if (product.price >= minPrice && product.price <= maxPrice) {
             if (product.price === "") {
                 product.price = 0
             }
@@ -190,15 +195,16 @@ filterBySearch = (nameProducts) => {
 }
 
 render() {
-    console.log(this.state.products)
     return (
 
     <Container>
         
         <SideBar
-        filterByCategory ={this.filterByCategory}
+            filterByCategory ={this.filterByCategory}
         />
+
         <InputSearch filterBySearch={this.filterBySearch} />
+
         <Filter
         filterByPrice={this.filterByPrice}
         filterByPayType = {this.filterByPayType}
@@ -212,7 +218,7 @@ render() {
                 return(
                 <BodySpan key={product.id}>                 
                     {/* <BodyRow> */}
-                        <Image src={product.photos[0]} />
+                        <Image onClick={() => this.props.goToDetail(product.id)} src={product.photos[0]} />
                     {/* </BodyRow> */}
                     <BodyRow>
                         <Paragraph fontsize="18" bold="bold" uppercase="uppercase">{product.name}</Paragraph>
@@ -221,6 +227,10 @@ render() {
                         <Paragraph fontsize="16">R$ {product.price},00</Paragraph>
                         <Paragraph fontsize="14">{product.installments}x de { product.installments =  product.price/product.installments} no Cartão</Paragraph>
                     </BodyRow>
+                    <BodyRow>
+                        <Button onClick={this.buyProduct}>Adicionar ao carrinho</Button>
+                    </BodyRow>
+
                 </BodySpan>
                 )
                 
