@@ -2,9 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Filter from "./Filter/Filter";
+import SideBar from "./SideBar/SideBar";
 import InputSearch from "./Filter/InputSearch";
 
+const Container = styled.div`
+    max-width: 100vw;
+    min-width:99vw;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr 1f 15fr;
+`;
 const BoxBodyProducts = styled.div`
+    
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
@@ -50,14 +59,23 @@ const Image = styled.img`
 `
 
 class BodyProducts extends React.Component {
+
 state = {
     products: [],
-    allProductsFixed: []
+    allProductsFixed: [],
+    productsFilterByPrice: [],
 }
 
 componentDidMount = () => {
     this.getProducts()
-    this.setState({lengthOfProducts: this.state.products.length})
+}
+saveInLocalStorage = (products) => {
+    localStorage.setItem("products", JSON.stringify(products))
+}
+getLocalStorage = () => {
+    const stringNew = localStorage.getItem("products")
+    let newProducts = JSON.parse(stringNew)
+    this.props.getListOfProducts(newProducts)  
 }
 
 getProducts = () => { 
@@ -67,6 +85,7 @@ getProducts = () => {
     .then((response) => {
         this.setState({products: response.data.products,
             allProductsFixed: response.data.products})
+        this.saveInLocalStorage(response.data.products)
     }).catch((error) => {
         console.log(error)
     })
@@ -74,6 +93,7 @@ getProducts = () => {
 
 
 filterByPrice = (minPrice = 0, maxPrice) => {
+   
     if(maxPrice === 0 || maxPrice === ""){
         maxPrice = Infinity
     }
@@ -85,12 +105,14 @@ filterByPrice = (minPrice = 0, maxPrice) => {
             return product
         }
     })
-    console.log(price) // ESSE VALOR DEVE IR NO COMPONENTE DE CRIAR PRODUTOS
-    this.setState({products: price}) 
+
+    return price
 }
 
-filterByPayType = (typeOfPayment) => {
-    const payType = this.state.allProductsFixed.filter(product => {
+
+filterByPayType = (typeOfPayment, listProducts) => {
+    const payType = listProducts.filter(product => {
+
         if(typeOfPayment === 'all') {
             return product
         }
@@ -98,48 +120,61 @@ filterByPayType = (typeOfPayment) => {
             return product
         }
     })
-    console.log(payType) // ESSE VALOR DEVE IR NO COMPONENTE DE CRIAR PRODUTOS
-    this.setState({products: payType}) 
-
+    return payType
+    
 }
 
-orderByPrice =(orderBy) =>{
+orderByPrice =(orderBy, listProducts) =>{
+    
     if(orderBy === 'lowerPrice'){
-        this.orderByLowerPrice()
+        this.orderByLowerPrice(listProducts)
     }else if(orderBy === 'higherPrice'){
-        this.orderByHigherPrice()
+        this.orderByHigherPrice(listProducts)
     }else if(orderBy === 'name'){
-        this.orderByName()
-        console.log('Foi o name')
+        this.orderByName(listProducts)
+    } else{
+        this.setState({products: listProducts})
+        return listProducts
     }
+
 }
 
-orderByLowerPrice = () =>{
-    let listProvisory = [...this.state.allProductsFixed]
-    listProvisory.sort(function(a,b){
+orderByLowerPrice = (listProducts) =>{
+
+    listProducts.sort(function(a,b){
         return Number(a.price) - Number(b.price)
     })
-    this.setState({products: listProvisory}) 
-
+    this.setState({products: listProducts}) 
+    return listProducts
 }
 
-orderByHigherPrice = () =>{
-    let listProvisory = [...this.state.allProductsFixed]
-    listProvisory.sort(function(a,b){
+orderByHigherPrice = (listProducts) =>{
+    listProducts.sort(function(a,b){
         return Number(b.price) - Number(a.price)  
-    })
-    this.setState({products: listProvisory}) 
-
+    })    
+    this.setState({products: listProducts}) 
+    return listProducts
 }
 
-orderByName = () =>{
-    let listProvisory = [...this.state.allProductsFixed]
-    listProvisory.sort(function(a,b){
+orderByName = (listProducts) =>{
+
+    listProducts.sort(function(a,b){
         return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0)
     })
-    this.setState({products: listProvisory}) 
 
+    this.setState({products: listProducts})
+    return listProducts
 }
+
+filterByCategory = (category) =>{
+        const provisoryList = this.state.allProductsFixed.filter(product => {
+            if(category === product.category){
+                return product
+            }
+        })
+        console.log(provisoryList)
+        this.setState({products: provisoryList})
+    }
 
 
 // filterBySearch = (nameProduct) => {
@@ -169,16 +204,22 @@ filterBySearch = (nameProducts) => {
 }
 
 render() {
+    console.log(this.state.products)
     return (
-    <div >
-        
-        <InputSearch filterBySearch={this.filterBySearch} />
 
+    <Container>
+        
+        <SideBar
+        filterByCategory ={this.filterByCategory}
+        />
+        <InputSearch filterBySearch={this.filterBySearch} />
         <Filter
-            filterByPrice={this.filterByPrice}
-            filterByPayType = {this.filterByPayType}
-            orderByPrice={this.orderByPrice}
-            filterBySearch={this.filterBySearch}
+        filterByPrice={this.filterByPrice}
+        filterByPayType = {this.filterByPayType}
+        orderByPrice={this.orderByPrice}
+        updateType={this.state.upadateType}
+        updateOrder ={this.state.updateOrder}
+        
         />
         <BoxBodyProducts>
             {this.state.products.map((product) => {
@@ -200,7 +241,7 @@ render() {
             })
             }
         </BoxBodyProducts>
-        </div>
+        </Container>
     )
 }
 }

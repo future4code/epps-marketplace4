@@ -1,8 +1,7 @@
 import React from "react"
 import styled from 'styled-components'
-import AppBar from '../components/AppBar/AppBar'
-import SideBar from '../components/SideBar/SideBar'
-import BodyProducts from '../components/BodyProducts'
+import AppBar from './AppBar/AppBar'
+import BodyProducts from './BodyProducts'
 
 const MainContent = styled.div`
   display: grid;
