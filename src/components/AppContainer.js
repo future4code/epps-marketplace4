@@ -1,7 +1,6 @@
 import React from "react"
 import styled from 'styled-components'
 import AppBar from './AppBar/AppBar'
-import SideBar from './SideBar/SideBar'
 import BodyProducts from './BodyProducts'
 
 const MainContent = styled.div`
@@ -15,7 +14,6 @@ export default class AppContainer extends React.Component {
      <div>
        <AppBar/>
        <MainContent>
-          <SideBar/>
           <BodyProducts/>
        </MainContent>
      </div>

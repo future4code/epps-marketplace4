@@ -164,6 +164,7 @@ filterByCategory = (category) =>{
     }
 
 render() {
+    console.log(this.state.products)
     return (
     <Container>
         <SideBar
