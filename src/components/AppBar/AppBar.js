@@ -12,7 +12,6 @@ import Button from '@material-ui/core/Button';
 // import { Logo } from './styled';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
-import MainInputSearch from './InputSearch'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +34,6 @@ export default function ButtonAppBar() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}></Typography>
-          <MainInputSearch/>
           <div>
             <AddShoppingCartIcon/>
             <Button color="inherit"> Login | Cadastrar</Button>
