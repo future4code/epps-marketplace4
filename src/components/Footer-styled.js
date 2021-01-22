@@ -33,10 +33,17 @@ export const SocialMediaIcon = styled.div`
     padding:0px;
     cursor: pointer;   
 `
-export const StyledCenter = styled.div`
-text-align:center;
+
+export const SectionLogo = styled.section`
+  display: flex;
+  justify-content: flex-end;
+  
+
 `
+export const ImgLogo = styled.img`
+width: 20%;
 
 
 
+`
 
