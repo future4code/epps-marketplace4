@@ -1,10 +1,9 @@
 import React from 'react';
-
-import { FilterContainer, InputPreco, FilterDiv } from "./styleFilter";
 import axios from 'axios';
 import { Card } from '@material-ui/core';
 import Select from './Select/Select';
 import InputSearch from './InputSearch';
+import { FilterContainer, InputPreco, FilterDivContainer, FilterDiv } from "./styleFilter";
 
 
 const optionsPayType=[
@@ -37,30 +36,14 @@ export default class Filter extends React.Component {
         this.setState({ maxPriceValue: Number(e.target.value) })
     }
 
-    handlePayType = (e) => {
-        this.setState({ payTypeValue: e.target.value })
-    }
+    // handlePayType = (e) => {
+    //     this.setState({ payTypeValue: e.target.value })
+    //     this.props.filterByPayType(e.target.value)
+    // }
 
     handleOrderBy = (e) => {
         this.setState({ orderByValue: e.target.value })
     }
-
-
-
-    
-
-    // componentDidMount() {
-    //     this.getProducts()
-    // }
-
-    // getProducts = () => {
-    //     axios.get('https://us-central1-labenu-apis.cloudfunctions.net/eloFourTwo/products')
-    //         .then(response => {
-    //             this.setState({ listOfProducts: response.data.products })
-    //         }).catch(err => {
-    //             console.log(err)
-    //         })
-    // }
 
     onClickFilterFunctions = (minPrice, maxPrice) =>{
         const listOfProducts = this.props.filterByPrice(minPrice,maxPrice)
@@ -69,32 +52,39 @@ export default class Filter extends React.Component {
 
 
     }
-
     render() {
-
         return (
             <FilterContainer>
+                <FilterDivContainer>
+                    <FilterDiv>
+                        <label>Preço</label>
+                        <InputPreco type="text" onChange={this.handleMinPrice} placeholder="R$"></InputPreco>
 
-                <FilterDiv>
-                    <label>Preço</label>
-                    <InputPreco type="text" onChange={this.handleMinPrice} placeholder="R$"></InputPreco>
+                        <label>Até</label>
+                        <InputPreco type="text" onChange={this.handleMaxPrice} placeholder="R$"></InputPreco>
 
-                    <label>Até</label>
-                    <InputPreco type="text" onChange={this.handleMaxPrice} placeholder="R$"></InputPreco>
+                        <button onClick={()=>this.props.filterByPrice(this.state.minPriceValue, this.state.maxPriceValue)}>Filtrar</button>
+                    </FilterDiv>
+                    {/* <FilterDiv>
+                        <label>Forma de pagamento</label>
+                        <select onChange={this.handlePayType}>
+                            <option value="all">Todos os Produos</option>
+                            <option value='card'>Cartäo</option>
+                            <option value='1'>Pronta Entrega</option>
+                            <option value='2'>Frete grátis</option>
+                        </select>
+                    </FilterDiv> */}
+                    <FilterDiv>
+                        <label>Ordenar por</label>
+                        <select onChange={this.handleOrderBy}>
+                            <option value=''>Relevância</option>
+                            <option value='lowerPrice'>Menor Preço</option>
+                            <option value='higherPrice'>Maior Preço</option>
+                            <option value='name'>Nome</option>                        
+                        </select>
+                    </FilterDiv>
+                </FilterDivContainer>
 
-                </FilterDiv>
-                <FilterDiv>
-                    <Select 
-                        optionsArray={optionsPayType}
-                        handleFunction = {this.handlePayType}
-                    />
-                </FilterDiv>
-                <FilterDiv>
-                    <Select 
-                        optionsArray={optionsOrderBy}
-                        handleFunction = {this.handleOrderBy}
-                    />
-                </FilterDiv>
                 <button onClick={()=>this.onClickFilterFunctions(this.state.minPriceValue, this.state.maxPriceValue)}>Filtrar</button>
 
             </FilterContainer>
