@@ -1,4 +1,9 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const SelectTag = styled.select`
+    padding: 8px;
+`;
 
 export default class Select extends React.Component {
     render(){   
@@ -6,7 +11,7 @@ export default class Select extends React.Component {
             return (<option value={option.value}>{option.label}</option>)
         })
 
-        return(<select onChange={this.props.handleFunction}>{renderOption}</select>
+        return(<SelectTag onChange={this.props.handleFunction}>{renderOption}</SelectTag>
         )
     }
     
