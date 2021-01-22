@@ -1,6 +1,7 @@
 import React from "react"
 import styled from 'styled-components'
 import AppBar from '../components/AppBar/AppBar'
+import Footer from '../components/Footer'
 import SideBar from '../components/SideBar/SideBar'
 import BodyProducts from '../components/BodyProducts'
 
@@ -18,6 +19,7 @@ export default class AppContainer extends React.Component {
           <SideBar/>
           <BodyProducts/>
        </MainContent>
+       <Footer/>
      </div>
     )
   }
