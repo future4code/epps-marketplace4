@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import SideBar from '../components/SideBar/SideBar'
 import BodyProducts from '../components/BodyProducts'
 
+
 const MainContent = styled.div`
   display: grid;
   grid-template-columns: 270px 1fr;
@@ -12,15 +13,19 @@ const MainContent = styled.div`
 export default class AppContainer extends React.Component {
 
 
-  render () {
+  render() {
+
     return (
-     <div>
-       <AppBar/>
-       <MainContent>
-          <BodyProducts goToDetail={this.props.goToDetail}/>
-       </MainContent>
-       <Footer/>
-     </div>
+      <div>
+        <AppBar />
+        <MainContent>
+          <BodyProducts
+            changeToShowProductPage={this.props.changeToShowProductPage}
+            getIdOfProduct={this.props.getIdOfProduct}
+          />
+        </MainContent>
+        <Footer />
+      </div>
     )
   }
 }
