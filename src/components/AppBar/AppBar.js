@@ -5,15 +5,16 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-// import logo from '../imagem/logo.png';
+import logo from '../imagem/logo.png';
 // import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 // import logo from '../imagem/user-logo.png';
 // import { Logo } from './styled';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
-import MainInputSearch from './InputSearch'
+
 import AppBarLink from './AppBarLink';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,9 +38,8 @@ export default function ButtonAppBar() {
         <Toolbar>
           <AppBarLink />
           <Typography variant="h6" className={classes.title}></Typography>
-          <MainInputSearch/>
           <div>
-            <AddShoppingCartIcon/>
+            <AddShoppingCartIcon />
             <Button color="inherit"> Login | Cadastrar</Button>
           </div>
         </Toolbar>

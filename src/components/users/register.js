@@ -47,13 +47,14 @@ export default class RegisterUser extends React.Component {
     onClickFunction = () =>{
         this.props.userEnter(this.state.loginValue, this.state.typeValue)
         this.enterInPages()
+        console.log('entrei ', this.state.userCreated)
     }
 
     render() {
-
+        console.log(this.props, 'ola')
         return (
             <FormContainer>
-                <Title>Crie sua conta agora!</Title>
+                <Title>Cadastra-se para comprar ou vender produtos</Title>
                 <FormContent>
                     <label>LOGIN: </label>
                     <input onChange={this.handleLogin} placeholder="Login:" />
@@ -73,8 +74,8 @@ export default class RegisterUser extends React.Component {
                 {!this.state.userCreated ?
                  <Button onClick={this.onClickFunction}>REGISTRAR</Button> :
                  <div>
-                     <Button onClick={this.props.goToAddProduct}>Anunciar Produto</Button>
-                     <Button onClick={this.props.goToBodyProduct}>Comprar Produto</Button>
+                     <Button onClick={()=>this.props.changePage('RegisterProduct')}>Anunciar Produto</Button>
+                     <Button onClick={()=>this.props.changePage("BodyProduct")}>Comprar Produto</Button>
                     <p>Usuário criado com sucesso!</p>
                      </div>
 }

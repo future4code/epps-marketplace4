@@ -2,30 +2,46 @@ import React from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 
+const Container = styled.div`
+   width: 100vw;
+   min-height: 100vh;
+`
 
 const ContainerRegisterProduct = styled.div`
-    width:50%;
+    margin:auto;
+    margin-top: 10vh;
+    width:80%;
+    height:80vh;
     border:1px solid black;
-    margin-top:50px;
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:space-around;
+    justify-content:space-evenly;
 `
 const InputProduct = styled.input`
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:50%;
+    width: 60vw;
+    margin-bottom:10px;
 `
+const Select = styled.select`
+    width: 60vw;
+    margin-bottom:10px;
+    padding:6px;
+`
+
+const SepareDiv = styled.div`
+    display:flex;
+    flex-direction:column;
+    
+`
+
 const ProductPayment = styled.div`
     width:50%;
     display:flex;
     align-items:center;
 `
 const InputProdutPayment = styled.input`
-    width:50vw;
-    height:2vh;
+    width: 60vw;
+    margin-bottom:10px;
 `
 const DetailsPayment = styled.div`
     width:50%;
@@ -71,7 +87,7 @@ export default class VisibleProduct extends React.Component {
         this.setState({ price: event.target.value })
     }
     onchangeLinkPhoto = (event) => {
-        this.setState({ photos: [event.target.value]})
+        this.setState({ photos: [event.target.value] })
     }
 
     onchangePaymentMethod = (event) => {
@@ -101,7 +117,7 @@ export default class VisibleProduct extends React.Component {
         axios.post('https://us-central1-labenu-apis.cloudfunctions.net/eloFourTwo/products', body)
             .then((res) => {
                 console.log(res.data)
-                
+
                 this.getProduct()
                 alert('Produto cadastrado com Sucesso')
             }).catch((err) => {
@@ -130,30 +146,34 @@ export default class VisibleProduct extends React.Component {
 
 
         return (
-            <div>
+            <Container>
 
                 <ContainerRegisterProduct>
                     <h2>Cadastro de  Produto</h2>
-                    <p>Nome do produto</p>
-                    <InputProduct
-                        value={this.state.name}
-                        onChange={this.onchangeNameProduct}
-                    />
-                    <p>Descrição</p>
-                    <InputProduct
-                        value={this.state.description}
-                        onChange={this.onchangeDescriptionProduct}
-                    />
-                    <ProductPayment>
-                        <p>Preço do produto</p>
+                    <SepareDiv>
+                        <label>Nome do produto</label>
+                        <InputProduct
+                            value={this.state.name}
+                            onChange={this.onchangeNameProduct}
+                        />
+                        <label>Descrição</label>
+
+                        <InputProduct
+                            value={this.state.description}
+                            onChange={this.onchangeDescriptionProduct}
+                        />
+                    </SepareDiv>
+                    <SepareDiv>
+
+                        <label>Preço do produto</label>
                         <InputProdutPayment
                             type="number" min="0.00" max="10000.00" step="0.01"
                             value={this.state.price}
                             onChange={this.onchangePriceProduct}
                         />
 
-                        <p>Método de pagamento</p>
-                        <select
+                        <label>Método de pagamento</label>
+                        <Select
                             value={this.state.paymentMethod}
                             onChange={this.onchangePaymentMethod}
                         >
@@ -161,12 +181,13 @@ export default class VisibleProduct extends React.Component {
                             <option value={'B'}>Boleto</option>
                             <option value={'C'}>Cartão de crédito</option>
                             <option value={'D'}>Cartão de débito</option>
-                        </select>
-                    </ProductPayment>
+                        </Select>
 
-                    <DetailsPayment>
-                        <p>Categoria do produto</p>
-                        <select
+                    </SepareDiv>
+                    <SepareDiv>
+
+                        <label>Categoria do produto</label>
+                        <Select
                             type="number"
                             value={this.state.category}
                             onChange={this.onchangeCategory}
@@ -187,9 +208,9 @@ export default class VisibleProduct extends React.Component {
                             <option value={'o'}>Beleza</option>
 
 
-                        </select>
-                        <p>Número de parcelas</p>
-                        <select
+                        </Select>
+                        <label>Número de parcelas</label>
+                        <Select
                             value={this.state.installments}
                             onChange={this.onchangeInstallments}
                         >
@@ -204,15 +225,18 @@ export default class VisibleProduct extends React.Component {
                             <option value={8}>8x sem juros</option>
                             <option value={9}>9x sem juros</option>
                             <option value={10}>10x sem juros</option>
-                        </select>
+                        </Select>
 
-                    </DetailsPayment>
-                    <p>Link da Foto</p>
-                    <InputLinkPhoto
-                        value={this.state.photos}
-                        onChange={this.onchangeLinkPhoto}
-                    />
+                        <label>Link da Foto</label>
+                        <InputProduct
+                            value={this.state.photos}
+                            onChange={this.onchangeLinkPhoto}
+                        />
+
+                    </SepareDiv>
+
                     <ButtonRegisterProduct onClick={this.createProduct} >Cadastrar Produto</ButtonRegisterProduct>
+                    <ButtonRegisterProduct onClick={()=>this.props.changePage('Home')} >Página Inicial</ButtonRegisterProduct>
 
 
                 </ContainerRegisterProduct>
@@ -230,7 +254,7 @@ export default class VisibleProduct extends React.Component {
                         </div>
                     )
                 })}
-            </div>
+            </Container>
         )
     }
 }

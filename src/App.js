@@ -2,23 +2,17 @@ import React from 'react';
 import Home from './screens/Home';
 import ViewProduct from './screens/ViewProduct';
 import ViewLittleCar from './screens/ViewLittleCar';
-import Login from './components/users/login'
-import Register from './components/users/register'
+import ViewUsers from './screens/ViewUsers'
+import RegisterProduct from './components/PageRegisterProducts/index'
+import BodyProducts from './components/BodyProducts';
+import ViewSuccess from './screens/ViewSuccess';
 
 export default class App extends React.Component {
 	state = {
 		idOfClickedProduct: "",
 		changeToShowProduct: false,
 		boughtProducts: [],
-		showLittleCar: false,
-		showRegisterPage: true
-	}
-
-	changeToShowProductPage = () => {
-		this.setState({ changeToShowProduct: !this.state.changeToShowProduct })
-	}
-	changeToShowLitteCar = () => {
-		this.setState({ showLittleCar: !this.state.showLittleCar })
+		page: "Register"
 	}
 
 	getIdOfProduct = (id) => {
@@ -45,15 +39,63 @@ export default class App extends React.Component {
 		console.log(newUser)
 	}
 
-	goToBodyProduct = () => {
-		this.setState({ showRegisterPage: !this.state.showRegisterPage })
+	renderPages = () => {
+		switch (this.state.page) {
+			case 'Register':
+				return (<ViewUsers
+					userEnter={this.userEnter}
+					changePage={this.changePage}
+				/>)
+				break;
+			case 'Home':
+				return (<Home
+					getIdOfProduct={this.getIdOfProduct}
+					changePage={this.changePage}
+				/>)
+				break;
+			case 'RegisterProduct':
+				return (<RegisterProduct
+					changePage={this.changePage}
+				/>)
+				break;
+			case 'ViewLittleCar':
+				return (<ViewLittleCar
+					changePage={this.changePage}
+					boughtProducts={this.state.boughtProducts}
+				/>)
+				break;
+			case 'ViewProduct':
+				return (<ViewProduct
+					changePage={this.changePage}
+					idOfClickedProduct={this.state.idOfClickedProduct}
+					addCar={this.addCar}
+				/>)
+				break;
+			case 'ViewSuccess':
+				return (<ViewSuccess
+					changePage={this.changePage}
+				/>)
+				break;
+			default:
+				return (<Home
+					getIdOfProduct={this.getIdOfProduct}
+					changePage={this.changePage}
+				/>)
+				break;
+		}
+	}
+
+	changePage = (page) => {
+		this.setState({ page: page })
+		console.log(page)
 	}
 
 	render() {
+		const printPage = this.renderPages()
 		const home = (
 			<Home
 				getIdOfProduct={this.getIdOfProduct}
-				changeToShowProductPage={this.changeToShowProductPage}
+				changePage={this.changePage}
 			/>
 		)
 
@@ -61,30 +103,19 @@ export default class App extends React.Component {
 			<ViewProduct
 				idOfClickedProduct={this.state.idOfClickedProduct}
 				addCar={this.addCar}
-				changeToShowLitteCar={this.changeToShowLitteCar}
-				changeToShowProductPage={this.changeToShowProductPage}
 			/>
 		)
 		const littleCar = (
 			<ViewLittleCar
-				changeToShowLitteCar={this.changeToShowLitteCar}
-				changeToShowProductPage={this.changeToShowProductPage}
 				boughtProducts={this.state.boughtProducts}
 
 			/>
 		)
+
 		return (
 			<div>
-				{
-					this.state.changeToShowProduct ?
-						(!this.state.showLittleCar ? productPage : littleCar) :
-						(this.state.showRegisterPage ?
-							<Register
-								userEnter={this.userEnter}
-								goToBodyProduct={this.goToBodyProduct}
-							/> :
-							home)
-				}
+				{printPage}
+
 
 			</div>
 		)

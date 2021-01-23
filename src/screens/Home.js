@@ -2,7 +2,6 @@ import React from "react"
 import styled from 'styled-components'
 import AppBar from '../components/AppBar/AppBar'
 import Footer from '../components/Footer'
-import SideBar from '../components/SideBar/SideBar'
 import BodyProducts from '../components/BodyProducts'
 
 
@@ -12,7 +11,6 @@ const MainContent = styled.div`
 `
 export default class AppContainer extends React.Component {
 
-
   render() {
 
     return (
@@ -20,7 +18,7 @@ export default class AppContainer extends React.Component {
         <AppBar />
         <MainContent>
           <BodyProducts
-            changeToShowProductPage={this.props.changeToShowProductPage}
+            changePage={this.props.changePage}
             getIdOfProduct={this.props.getIdOfProduct}
           />
         </MainContent>

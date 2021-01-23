@@ -195,7 +195,7 @@ filterBySearch = (nameProducts) => {
 }
 
 onClickProduct = (id) =>{
-    this.props.changeToShowProductPage()
+    this.props.changePage("ViewProduct")
     this.props.getIdOfProduct(id)
 }
 

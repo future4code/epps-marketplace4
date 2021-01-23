@@ -36,10 +36,6 @@ export default class ViewLittleCar extends React.Component {
         this.setState({price:price})
     }
 
-    onClickFunction = () =>{
-        this.props.changeToShowLitteCar()
-        this.props.changeToShowProductPage()
-    }
 
     render() {
         console.log(this.props.boughtProducts)
@@ -60,14 +56,14 @@ export default class ViewLittleCar extends React.Component {
                                         <p>{product.category}</p>
                                         <p>{product.installments}</p>
                                     </div>
-                            
                             )
                         })
                     )
                 })}
                 <div>
                     <h3>Valor Total : R${this.state.price}</h3>
-                    <button onClick={this.onClickFunction}>Voltar</button>
+                    <button onClick={()=>this.props.changePage('ViewSuccess')}>Comprar</button>
+                    <button onClick={()=>this.props.changePage('Home')}>Voltar</button>
 
                 </div>
             </div>
