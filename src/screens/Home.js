@@ -20,7 +20,7 @@ export default class AppContainer extends React.Component {
         <AppBar />
         <MainContent>
           <BodyProducts
-            changeToShowProductPage={this.props.changeToShowProductPage}
+            changePage={this.props.changePage}
             getIdOfProduct={this.props.getIdOfProduct}
           />
         </MainContent>

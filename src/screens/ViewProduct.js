@@ -33,7 +33,6 @@ export default class ViewBuyProducts extends React.Component {
     }
     
     render() {
-        
         return (
             <div>
                 {this.state.products.map((product)=>{
@@ -53,8 +52,8 @@ export default class ViewBuyProducts extends React.Component {
                 })}
                 <input type="text" onChange={this.getNumber}/>
                 <button onClick={()=>this.onClickedFunction(this.props.idOfClickedProduct, this.state.numberOfProducts)}>Adicionar ao carrinho</button>
-                <button onClick={this.props.changeToShowLitteCar}> Ver Carrinho </button>
-                <button onClick={this.props.changeToShowProductPage}>Voltar</button>
+                <button onClick={()=>this.props.changePage('ViewLittleCar')}> Ver Carrinho </button>
+                <button onClick={()=>this.props.changePage('Home')}>Voltar</button>
             </div>
         )
     }
