@@ -2,10 +2,10 @@ import React from 'react';
 import Home from './screens/Home';
 import ViewProduct from './screens/ViewProduct';
 import ViewLittleCar from './screens/ViewLittleCar';
-import Login from './components/users/login'
-import Register from './components/users/register'
+import ViewUsers from './screens/ViewUsers'
 import RegisterProduct from './components/PageRegisterProducts/index'
 import BodyProducts from './components/BodyProducts';
+import ViewSuccess from './screens/ViewSuccess';
 
 export default class App extends React.Component {
 	state = {
@@ -42,9 +42,9 @@ export default class App extends React.Component {
 	renderPages = () => {
 		switch (this.state.page) {
 			case 'Register':
-				return (<Register 
-				userEnter={this.userEnter}
-				changePage={this.changePage}
+				return (<ViewUsers
+					userEnter={this.userEnter}
+					changePage={this.changePage}
 				/>)
 				break;
 			case 'Home':
@@ -54,22 +54,27 @@ export default class App extends React.Component {
 				/>)
 				break;
 			case 'RegisterProduct':
-				return (<RegisterProduct 
+				return (<RegisterProduct
 					changePage={this.changePage}
 				/>)
 				break;
 			case 'ViewLittleCar':
-				return (<ViewLittleCar 
+				return (<ViewLittleCar
 					changePage={this.changePage}
 					boughtProducts={this.state.boughtProducts}
 				/>)
 				break;
 			case 'ViewProduct':
-				return (<ViewProduct 
+				return (<ViewProduct
 					changePage={this.changePage}
 					idOfClickedProduct={this.state.idOfClickedProduct}
 					addCar={this.addCar}
-					/>)
+				/>)
+				break;
+			case 'ViewSuccess':
+				return (<ViewSuccess
+					changePage={this.changePage}
+				/>)
 				break;
 			default:
 				return (<Home
@@ -80,8 +85,8 @@ export default class App extends React.Component {
 		}
 	}
 
-	changePage = (page) =>{
-		this.setState({page:page})
+	changePage = (page) => {
+		this.setState({ page: page })
 		console.log(page)
 	}
 
@@ -106,7 +111,7 @@ export default class App extends React.Component {
 
 			/>
 		)
-		
+
 		return (
 			<div>
 				{printPage}

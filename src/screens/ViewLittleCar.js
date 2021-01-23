@@ -62,6 +62,7 @@ export default class ViewLittleCar extends React.Component {
                 })}
                 <div>
                     <h3>Valor Total : R${this.state.price}</h3>
+                    <button onClick={()=>this.props.changePage('ViewSuccess')}>Comprar</button>
                     <button onClick={()=>this.props.changePage('Home')}>Voltar</button>
 
                 </div>
