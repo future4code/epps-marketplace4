@@ -1,11 +1,10 @@
 import React from 'react'
 import axios from 'axios'
 
-
-
 export default class ViewBuyProducts extends React.Component {
     state = {
-        products: []
+        products: [],
+        numberOfProducts: ""
     }
 
     componentDidMount = () => {
@@ -25,14 +24,20 @@ export default class ViewBuyProducts extends React.Component {
             })
     }
 
+    getNumber = (e) =>{
+        this.setState({numberOfProducts: e.target.value})
+    }
 
+    onClickedFunction = (id, quantity) =>{
+        this.props.addCar(id, quantity)
+    }
     
     render() {
-        console.log(this.state.products)
+        
         return (
             <div>
-
                 {this.state.products.map((product)=>{
+                    if(product.id === this.props.idOfClickedProduct)
                     return(
                         <div key={product.id}>
                         <img src={product.photos[0]} />
@@ -46,8 +51,10 @@ export default class ViewBuyProducts extends React.Component {
                             </div>
                     )
                 })}
-
-                <button>Adicionar ao carrinho</button>
+                <input type="text" onChange={this.getNumber}/>
+                <button onClick={()=>this.onClickedFunction(this.props.idOfClickedProduct, this.state.numberOfProducts)}>Adicionar ao carrinho</button>
+                <button onClick={this.props.changeToShowLitteCar}> Ver Carrinho </button>
+                <button onClick={this.props.changeToShowProductPage}>Voltar</button>
             </div>
         )
     }
