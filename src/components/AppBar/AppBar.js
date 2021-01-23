@@ -12,6 +12,10 @@ import logo from '../imagem/logo.png';
 // import { Logo } from './styled';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
+
+import AppBarLink from './AppBarLink';
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -32,6 +36,7 @@ export default function ButtonAppBar() {
     <div>
       <AppBar position="static">
         <Toolbar>
+          <AppBarLink />
           <Typography variant="h6" className={classes.title}></Typography>
           <div>
             <AddShoppingCartIcon />
