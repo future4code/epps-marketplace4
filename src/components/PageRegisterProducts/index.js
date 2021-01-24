@@ -111,7 +111,6 @@ export default class VisibleProduct extends React.Component {
 
     createProduct = () => {
         const body = {
-
             name: this.state.name,
             description: this.state.description,
             price: this.state.price,
@@ -136,11 +135,9 @@ export default class VisibleProduct extends React.Component {
     getProduct = () => {
         axios.get('https://us-central1-labenu-apis.cloudfunctions.net/eloFourTwo/products')
             .then((res) => {
-                console.log('Produto cadastrado com Sucesso')
-
+                alert('Produto cadastrado com Sucesso')
             }).catch((err) => {
-
-                console.log('Não foi possivel cadastrar o Produto')
+                alert('Não foi possivel cadastrar o Produto')
             })
 
     }
@@ -180,12 +177,8 @@ export default class VisibleProduct extends React.Component {
     }
 
     render() {
-        // console.log('ver Aqui', this.state.local)
-        
-
         return (
             <Container>
-
                 <ContainerRegisterProduct>
                     <h2>Cadastro de  Produto</h2>
                     <SepareDiv>

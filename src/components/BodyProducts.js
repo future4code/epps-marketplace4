@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import Filter from "./Filter/Filter";
 import SideBar from "./SideBar/SideBar";
+import AppBar from "./AppBar/AppBar";
 import InputSearch from "./Filter/InputSearch";
 
 const Container = styled.div`
@@ -202,7 +203,6 @@ render() {
     return (
 
     <Container>
-        
         <SideBar
             filterByCategory ={this.filterByCategory}
         />

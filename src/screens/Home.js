@@ -11,10 +11,11 @@ const MainContent = styled.div`
 `
 export default class AppContainer extends React.Component {
 
-  render() {
 
+  render() {
     return (
       <div>
+        <AppBar />
         <MainContent>
           <BodyProducts
             changePage = {this.props.changePage}
