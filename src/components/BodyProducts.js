@@ -94,9 +94,9 @@ getProducts = () => {
     })
 }
 
-// buyProduct = () => {
-//     this.setState(<ViewBuyProducts/>)
-// }
+buyProduct = (id) => {
+    this.props.addCar(id, 1)
+}
 
 filterByPrice = (minPrice = 0, maxPrice) => {
    
@@ -130,8 +130,7 @@ filterByPayType = (typeOfPayment, listProducts) => {
     
 }
 
-orderByPrice =(orderBy, listProducts) =>{
-    
+orderByPrice =(orderBy, listProducts) => {
     if(orderBy === 'lowerPrice'){
         this.orderByLowerPrice(listProducts)
     }else if(orderBy === 'higherPrice'){
@@ -142,11 +141,9 @@ orderByPrice =(orderBy, listProducts) =>{
         this.setState({products: listProducts})
         return listProducts
     }
-
 }
 
-orderByLowerPrice = (listProducts) =>{
-
+orderByLowerPrice = (listProducts) => { 
     listProducts.sort(function(a,b){
         return Number(a.price) - Number(b.price)
     })
@@ -154,7 +151,7 @@ orderByLowerPrice = (listProducts) =>{
     return listProducts
 }
 
-orderByHigherPrice = (listProducts) =>{
+orderByHigherPrice = (listProducts) => {
     listProducts.sort(function(a,b){
         return Number(b.price) - Number(a.price)  
     })    
@@ -162,7 +159,7 @@ orderByHigherPrice = (listProducts) =>{
     return listProducts
 }
 
-orderByName = (listProducts) =>{
+orderByName = (listProducts) => {
 
     listProducts.sort(function(a,b){
         return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0)
@@ -172,7 +169,7 @@ orderByName = (listProducts) =>{
     return listProducts
 }
 
-filterByCategory = (category) =>{
+filterByCategory = (category) => {
         const provisoryList = this.state.allProductsFixed.filter(product => {
             if(category === product.category){
                 return product
@@ -194,9 +191,9 @@ filterBySearch = (nameProducts) => {
 
 }
 
-onClickProduct = (id) =>{
-    this.props.changePage("ViewProduct")
+onClickProduct = (id) => {
     this.props.getIdOfProduct(id)
+    this.props.goToProduct()
 }
 
 
@@ -234,7 +231,7 @@ render() {
                         <Paragraph fontsize="14">{product.installments}x de { product.installments =  product.price/product.installments} no Cartão</Paragraph>
                     </BodyRow>
                     <BodyRow>
-                        <Button onClick={this.buyProduct}>Adicionar ao carrinho</Button>
+                        <Button onClick={() => this.buyProduct(product.id)}>Adicionar ao carrinho</Button>
                     </BodyRow>
                 </BodySpan>
                 )

@@ -29,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar(props) {
   const classes = useStyles();
-
+  console.log(props)
   return (
     <div>
       <AppBar position="static">
@@ -39,7 +39,10 @@ export default function ButtonAppBar() {
           <AppBarLink />
           <Typography variant="h6" className={classes.title}></Typography>
           <div>
-            <AddShoppingCartIcon />
+            <span onClick={props.goToLittleCar}>
+              <AddShoppingCartIcon />
+            </span>
+
             <Button color="inherit"> Login | Cadastrar</Button>
           </div>
         </Toolbar>

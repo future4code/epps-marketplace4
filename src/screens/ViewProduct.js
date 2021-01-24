@@ -1,10 +1,15 @@
 import React from 'react'
 import axios from 'axios'
+import style from 'styled-components'
+
+const ViewProductsContainer = style.div`
+    background-color: red;
+`
 
 export default class ViewBuyProducts extends React.Component {
     state = {
         products: [],
-        numberOfProducts: ""
+        numberOfProducts: 1
     }
 
     componentDidMount = () => {
@@ -28,13 +33,13 @@ export default class ViewBuyProducts extends React.Component {
         this.setState({numberOfProducts: e.target.value})
     }
 
-    onClickedFunction = (id, quantity) =>{
+    handleClick = (id, quantity) =>{
         this.props.addCar(id, quantity)
     }
     
-    render() {
+    render() {     
         return (
-            <div>
+            <ViewProductsContainer>
                 {this.state.products.map((product)=>{
                     if(product.id === this.props.idOfClickedProduct)
                     return(
@@ -50,11 +55,14 @@ export default class ViewBuyProducts extends React.Component {
                             </div>
                     )
                 })}
-                <input type="text" onChange={this.getNumber}/>
-                <button onClick={()=>this.onClickedFunction(this.props.idOfClickedProduct, this.state.numberOfProducts)}>Adicionar ao carrinho</button>
-                <button onClick={()=>this.props.changePage('ViewLittleCar')}> Ver Carrinho </button>
-                <button onClick={()=>this.props.changePage('Home')}>Voltar</button>
-            </div>
+                
+                <label> Quantidade:</label>
+                <input type="text" value={this.state.numberOfProducts} onChange={this.getNumber}/>
+                <button onClick={()=>this.handleClick(this.props.idOfClickedProduct, this.state.numberOfProducts)}>Adicionar ao carrinho</button>
+                <button onClick={this.props.goToLittleCar}> Ver Carrinho </button>
+                <button onClick={this.props.goToProduct}>Voltar</button>
+            </ViewProductsContainer>
+
         )
     }
 }

@@ -23,6 +23,7 @@ export default class ViewLittleCar extends React.Component {
                 console.log(error)
             })
     }
+
     totalPrice = (listOfproducts) =>{
         let price = 0
         listOfproducts.map(product=>{
@@ -36,11 +37,16 @@ export default class ViewLittleCar extends React.Component {
         this.setState({price:price})
     }
 
+    onClickFunction = () =>{
+        this.props.goToLittleCar()
+        this.props.goToProduct()
+    }
 
     render() {
-        console.log(this.props.boughtProducts)
+        console.log("qualquer coisa aí")
         return (
             <div>
+                <button onClick={this.onClickFunction}>Voltar</button>
                 {this.state.products.map(product => {
                     return (
                         this.props.boughtProducts.map(boughtProduct => {
