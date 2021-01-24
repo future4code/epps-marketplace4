@@ -51,6 +51,7 @@ export default class ViewAddProduct extends React.Component {
                     })
 
                 }
+                <button onClick={()=>this.props.onchange('Home')}></button>
             </div>
         )
     }
