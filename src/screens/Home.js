@@ -15,6 +15,7 @@ export default class AppContainer extends React.Component {
 
     return (
       <div>
+        <AppBar />
         <MainContent>
           <BodyProducts
             changePage = {this.props.changePage}
