@@ -38,19 +38,21 @@ export default class ViewLittleCar extends React.Component {
 
 
     render() {
-        console.log(this.props.boughtProducts)
+        
         return (
             <div>
-                {this.state.products.map(product => {
+                {this.props.boughtProducts && this.state.products.map(product => {
                     return (
                         this.props.boughtProducts.map(boughtProduct => {
                             if (product.id === boughtProduct.id) 
                                 return (
                                     <div key={product.id}>
                                         <img src={product.photos[0]} />
-                                        <div>{product.name}</div>
-                                        <p>{product.description}</p>
-                                        <p>{product.price}</p>
+                                        <div>Nome{product.name}</div>
+                                        <p>Descrição{product.description}</p>
+                                        <p>Preço{product.price}</p>
+                                        <p>Quantidade: {boughtProduct.quantity}</p>
+                                        <p>Montante: R${product.price * boughtProduct.quantity}</p>
 
                                         <p>{product.paymentMethod}</p>
                                         <p>{product.category}</p>
@@ -64,7 +66,6 @@ export default class ViewLittleCar extends React.Component {
                     <h3>Valor Total : R${this.state.price}</h3>
                     <button onClick={()=>this.props.changePage('ViewSuccess')}>Comprar</button>
                     <button onClick={()=>this.props.changePage('Home')}>Voltar</button>
-
                 </div>
             </div>
         )

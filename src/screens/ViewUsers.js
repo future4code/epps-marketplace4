@@ -7,6 +7,7 @@ export default class viewSuccess extends React.Component {
             <Register
                 userEnter={this.props.userEnter}
                 changePage={this.props.changePage}
+                checkUser={this.props.checkUser}
             />
         </div>)
     }

@@ -45,13 +45,12 @@ export default class RegisterUser extends React.Component {
         this.setState({userCreated:!this.state.userCreated})
     }
     onClickFunction = () =>{
-        this.props.userEnter(this.state.loginValue, this.state.typeValue)
         this.enterInPages()
-        console.log('entrei ', this.state.userCreated)
+        this.props.checkUser(this.state.loginValue, this.state.codeValue, this.state.typeValue)
     }
 
     render() {
-        console.log(this.props, 'ola')
+       
         return (
             <FormContainer>
                 <Title>Cadastra-se para comprar ou vender produtos</Title>

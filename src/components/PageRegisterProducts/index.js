@@ -236,6 +236,7 @@ export default class VisibleProduct extends React.Component {
                     </SepareDiv>
 
                     <ButtonRegisterProduct onClick={this.createProduct} >Cadastrar Produto</ButtonRegisterProduct>
+                    <ButtonRegisterProduct onClick={()=>this.props.changePage('MyProducts')} >Meus Produtos Cadastrados</ButtonRegisterProduct>
                     <ButtonRegisterProduct onClick={()=>this.props.changePage('Home')} >Página Inicial</ButtonRegisterProduct>
 
 

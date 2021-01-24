@@ -3,40 +3,112 @@ import Home from './screens/Home';
 import ViewProduct from './screens/ViewProduct';
 import ViewLittleCar from './screens/ViewLittleCar';
 import ViewUsers from './screens/ViewUsers'
-import RegisterProduct from './components/PageRegisterProducts/index'
-import BodyProducts from './components/BodyProducts';
+import ViewAddProduct from './screens/ViewAddProduct'
 import ViewSuccess from './screens/ViewSuccess';
+import MyProducts from './screens/MyProducts';
+import axios from 'axios';
 
 export default class App extends React.Component {
 	state = {
+		local: [],
 		idOfClickedProduct: "",
 		changeToShowProduct: false,
 		boughtProducts: [],
-		page: "Register"
+		page: "Register",
+		user: {},
+
+	}
+
+
+	componentDidMount = () => {
+		this.getLocalStorage()
+	}
+
+	getLocalStorage = () => {
+		const stringNew = localStorage.getItem("users")
+		let newListOfQueries = JSON.parse(stringNew)
+		this.setState({ local: newListOfQueries })
+	}
+	saveInLocalStorage = (users) => {
+		localStorage.setItem("users", JSON.stringify(users))
+	}
+
+	checkUser = (login, code, type) => {
+		let count = 0
+		if (this.state.local) {
+			this.state.local.map(user => {
+				if (user.login === login && user.code === code) {
+					this.setState({ user: user })
+					count += 1
+				}
+			})
+			if (count < 1) {
+				this.userEnter(login, code, type)
+			}
+		} else {
+			this.userEnter(login, code, type)
+		}
+
 	}
 
 	getIdOfProduct = (id) => {
 		this.setState({ idOfClickedProduct: id })
+		this.getBoughtProducts()
+	}
+
+	getBoughtProducts = () => {
+		let newList = this.state.user.boughtProducts
+		this.setState({ boughtProducts: newList })
+		console.log(newList, "aqui")
 	}
 
 	addCar = (id, quantity) => {
 		let newBuy = { id: id, quantity: quantity }
-		let newList = [...this.state.boughtProducts]
+		let newList = [...this.state.user.boughtProducts]
 		newList.push(newBuy)
 		this.setState({ boughtProducts: newList })
+
+		let newUser = this.state.user
+		newUser.boughtProducts = newList
+		this.setState({ user: newUser })
+		console.log(this.state.user)
+
+		this.upDateUserOnLocalStorage()
+		this.saveInLocalStorage(this.state.local)
 	}
 
-	userEnter = (login, type) => {
+	upDateUserOnLocalStorage = () => {
+		let provisoryList = this.state.local
+		provisoryList.map(user => {
+			if (user.id === this.state.user.id) {
+				user = this.state.user
+			}
+		})
+
+	}
+
+	userEnter = (login, code, type) => {
 		let newUser = {
 			id: Date(),
 			dateOfCreation: Date(),
 			login: login,
+			code: code,
 			type: type,
 			boughtProducts: [],
 			createdProducts: []
 		}
-		this.setState({ newUser: newUser })
-		console.log(newUser)
+
+		this.setState({ user: newUser })
+		this.updateLocal(newUser)
+	}
+
+	updateLocal = (newUser) => {
+		let listOfUsers = []
+		if (this.state.local) {
+			listOfUsers = [...this.state.local]
+		}
+		listOfUsers.push(newUser)
+		this.saveInLocalStorage(listOfUsers)
 	}
 
 	renderPages = () => {
@@ -45,6 +117,14 @@ export default class App extends React.Component {
 				return (<ViewUsers
 					userEnter={this.userEnter}
 					changePage={this.changePage}
+					checkUser={this.checkUser}
+				/>)
+				break;
+			case 'MyProducts':
+				return (<MyProducts
+					changePage={this.changePage}
+					deleteProduct= {this.deleteProduct}
+					local={this.state.local}
 				/>)
 				break;
 			case 'Home':
@@ -54,7 +134,7 @@ export default class App extends React.Component {
 				/>)
 				break;
 			case 'RegisterProduct':
-				return (<RegisterProduct
+				return (<ViewAddProduct
 					changePage={this.changePage}
 				/>)
 				break;
@@ -87,31 +167,16 @@ export default class App extends React.Component {
 
 	changePage = (page) => {
 		this.setState({ page: page })
-		console.log(page)
+	}
+
+	deleteProduct = (id) => {
+		axios.del(`https://us-central1-labenu-apis.cloudfunctions.net/eloFourTwo/products/${id}`)
+			.then((res) => { console.log(res) })
+			.catch(err => { console.log(err) })
 	}
 
 	render() {
 		const printPage = this.renderPages()
-		const home = (
-			<Home
-				getIdOfProduct={this.getIdOfProduct}
-				changePage={this.changePage}
-			/>
-		)
-
-		const productPage = (
-			<ViewProduct
-				idOfClickedProduct={this.state.idOfClickedProduct}
-				addCar={this.addCar}
-			/>
-		)
-		const littleCar = (
-			<ViewLittleCar
-				boughtProducts={this.state.boughtProducts}
-
-			/>
-		)
-
 		return (
 			<div>
 				{printPage}
