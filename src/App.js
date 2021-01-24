@@ -70,6 +70,72 @@ export default class App extends React.Component {
 					goToProduct={this.goToProduct}
 				/>
 			</>
+
+// 	renderPages = () => {
+// 		switch (this.state.page) {
+// 			case 'Register':
+// 				return (<ViewUsers
+// 					userEnter={this.userEnter}
+// 					changePage={this.changePage}
+// 				/>)
+// 				break;
+// 			case 'Home':
+// 				return (<Home
+// 					getIdOfProduct={this.getIdOfProduct}
+// 					changePage={this.changePage}
+// 				/>)
+// 				break;
+// 			case 'RegisterProduct':
+// 				return (<RegisterProduct
+// 					changePage={this.changePage}
+// 				/>)
+// 				break;
+// 			case 'ViewLittleCar':
+// 				return (<ViewLittleCar
+// 					changePage={this.changePage}
+// 					boughtProducts={this.state.boughtProducts}
+// 				/>)
+// 				break;
+// 			case 'ViewProduct':
+// 				return (<ViewProduct
+// 					changePage={this.changePage}
+// 					idOfClickedProduct={this.state.idOfClickedProduct}
+// 					addCar={this.addCar}
+// 				/>)
+// 				break;
+// 			case 'ViewSuccess':
+// 				return (<ViewSuccess
+// 					changePage={this.changePage}
+// 				/>)
+// 				break;
+// 			default:
+// 				return (<Home
+// 					getIdOfProduct={this.getIdOfProduct}
+// 					changePage={this.changePage}
+// 				/>)
+// 				break;
+// 		}
+// 	}
+
+// 	changePage = (page) => {
+// 		this.setState({ page: page })
+// 		console.log(page)
+// 	}
+
+// 	render() {
+// 		const printPage = this.renderPages()
+// 		const home = (
+// 			<Home
+// 				getIdOfProduct={this.getIdOfProduct}
+// 				changePage={this.changePage}
+// 			/>
+// 		)
+
+// 		const productPage = (
+// 			<ViewProduct
+// 				idOfClickedProduct={this.state.idOfClickedProduct}
+// 				addCar={this.addCar}
+// 			/>
 		)
 
 		const littleCar = (
@@ -80,7 +146,6 @@ export default class App extends React.Component {
 					goToLittleCar={this.goToLittleCar}
 					goToProduct={this.goToProduct}
 					boughtProducts={this.state.boughtProducts}
-
 				/>
 			</>
 		)

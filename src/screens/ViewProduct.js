@@ -55,12 +55,14 @@ export default class ViewBuyProducts extends React.Component {
                             </div>
                     )
                 })}
+                
                 <label> Quantidade:</label>
                 <input type="text" value={this.state.numberOfProducts} onChange={this.getNumber}/>
                 <button onClick={()=>this.handleClick(this.props.idOfClickedProduct, this.state.numberOfProducts)}>Adicionar ao carrinho</button>
                 <button onClick={this.props.goToLittleCar}> Ver Carrinho </button>
                 <button onClick={this.props.goToProduct}>Voltar</button>
             </ViewProductsContainer>
+
         )
     }
 }
