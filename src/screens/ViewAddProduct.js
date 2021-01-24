@@ -5,7 +5,9 @@ export default class ViewAddProduct extends React.Component{
     render(){
         return(<div>
             <AddProduct
-            changePage={this.props.changePage}/>
+            user={this.props.user}
+            changePage={this.props.changePage}
+            />
         </div>)
     }
 }

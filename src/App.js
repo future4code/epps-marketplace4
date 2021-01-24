@@ -125,6 +125,7 @@ export default class App extends React.Component {
 					changePage={this.changePage}
 					deleteProduct= {this.deleteProduct}
 					local={this.state.local}
+					
 				/>)
 				break;
 			case 'Home':
@@ -136,6 +137,7 @@ export default class App extends React.Component {
 			case 'RegisterProduct':
 				return (<ViewAddProduct
 					changePage={this.changePage}
+					user={this.state.user}
 				/>)
 				break;
 			case 'ViewLittleCar':

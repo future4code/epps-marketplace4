@@ -201,6 +201,7 @@ onClickProduct = (id) =>{
 
 
 render() {
+    console.log(this.state.products)
     return (
 
     <Container>
