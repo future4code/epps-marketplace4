@@ -14,11 +14,15 @@ export default class App extends React.Component {
 		idOfClickedProduct: "",
 		changeToShowProduct: false,
 		boughtProducts: [],
-		page: "Register",
+		// page: "Home",
+		// page: "Register",
+		page: "RegisterProduct",
+		// page: "MyProducts",
 		user: {},
 
 	}
 
+	// DEV REGISTRAR
 
 	componentDidMount = () => {
 		this.getLocalStorage()
@@ -29,6 +33,7 @@ export default class App extends React.Component {
 		let newListOfQueries = JSON.parse(stringNew)
 		this.setState({ local: newListOfQueries })
 	}
+
 	saveInLocalStorage = (users) => {
 		localStorage.setItem("users", JSON.stringify(users))
 	}
@@ -51,6 +56,10 @@ export default class App extends React.Component {
 
 	}
 
+	// DEV END REGISTER
+
+	// DEV PRODUTRO
+
 	getIdOfProduct = (id) => {
 		this.setState({ idOfClickedProduct: id })
 		this.getBoughtProducts()
@@ -61,6 +70,8 @@ export default class App extends React.Component {
 		this.setState({ boughtProducts: newList })
 		console.log(newList, "aqui")
 	}
+
+	// ADICIONAR AO CARRINHO 
 
 	addCar = (id, quantity) => {
 		let newBuy = { id: id, quantity: quantity }
@@ -111,7 +122,10 @@ export default class App extends React.Component {
 		this.saveInLocalStorage(listOfUsers)
 	}
 
+	// RENDERIZANDO AS PAGINAS
+
 	renderPages = () => {
+
 		switch (this.state.page) {
 			case 'Register':
 				return (<ViewUsers
@@ -120,6 +134,7 @@ export default class App extends React.Component {
 					checkUser={this.checkUser}
 				/>)
 				break;
+
 			case 'MyProducts':
 				return (<MyProducts
 					changePage={this.changePage}
@@ -127,23 +142,27 @@ export default class App extends React.Component {
 					local={this.state.local}
 				/>)
 				break;
+
 			case 'Home':
 				return (<Home
 					getIdOfProduct={this.getIdOfProduct}
 					changePage={this.changePage}
 				/>)
 				break;
+
 			case 'RegisterProduct':
 				return (<ViewAddProduct
 					changePage={this.changePage}
 				/>)
 				break;
+
 			case 'ViewLittleCar':
 				return (<ViewLittleCar
 					changePage={this.changePage}
 					boughtProducts={this.state.boughtProducts}
 				/>)
 				break;
+
 			case 'ViewProduct':
 				return (<ViewProduct
 					changePage={this.changePage}
@@ -151,17 +170,20 @@ export default class App extends React.Component {
 					addCar={this.addCar}
 				/>)
 				break;
+
 			case 'ViewSuccess':
 				return (<ViewSuccess
 					changePage={this.changePage}
 				/>)
 				break;
+
 			default:
 				return (<Home
 					getIdOfProduct={this.getIdOfProduct}
 					changePage={this.changePage}
 				/>)
 				break;
+
 		}
 	}
 
@@ -180,8 +202,7 @@ export default class App extends React.Component {
 		return (
 			<div>
 				{printPage}
-
-
+				{/* <Home /> */}
 			</div>
 		)
 	}
