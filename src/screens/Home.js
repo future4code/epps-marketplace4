@@ -17,11 +17,11 @@ export default class AppContainer extends React.Component {
 
     return (
       <div>
-        <AppBar />
         <MainContent>
           <BodyProducts
-            changeToShowProductPage={this.props.changeToShowProductPage}
+            goToProduct={this.props.goToProduct}
             getIdOfProduct={this.props.getIdOfProduct}
+            addCar={this.props.addCar}
           />
         </MainContent>
         <Footer />

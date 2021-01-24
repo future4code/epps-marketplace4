@@ -23,6 +23,7 @@ export default class ViewLittleCar extends React.Component {
                 console.log(error)
             })
     }
+
     totalPrice = (listOfproducts) =>{
         let price = 0
         listOfproducts.map(product=>{
@@ -37,14 +38,15 @@ export default class ViewLittleCar extends React.Component {
     }
 
     onClickFunction = () =>{
-        this.props.changeToShowLitteCar()
-        this.props.changeToShowProductPage()
+        this.props.goToLittleCar()
+        this.props.goToProduct()
     }
 
     render() {
-        console.log(this.props.boughtProducts)
+        console.log("qualquer coisa aí")
         return (
             <div>
+                <button onClick={this.onClickFunction}>Voltar</button>
                 {this.state.products.map(product => {
                     return (
                         this.props.boughtProducts.map(boughtProduct => {
@@ -67,8 +69,6 @@ export default class ViewLittleCar extends React.Component {
                 })}
                 <div>
                     <h3>Valor Total : R${this.state.price}</h3>
-                    <button onClick={this.onClickFunction}>Voltar</button>
-
                 </div>
             </div>
         )

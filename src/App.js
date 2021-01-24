@@ -4,21 +4,28 @@ import ViewProduct from './screens/ViewProduct';
 import ViewLittleCar from './screens/ViewLittleCar';
 import Login from './components/users/login'
 import Register from './components/users/register'
+import AppBar from './components/AppBar/AppBar'
 
 export default class App extends React.Component {
 	state = {
 		idOfClickedProduct: "",
-		changeToShowProduct: false,
+		showProduct: false,
 		boughtProducts: [],
 		showLittleCar: false,
-		showRegisterPage: true
+		showRegisterPage: true,
+		showNotification: false
 	}
 
-	changeToShowProductPage = () => {
-		this.setState({ changeToShowProduct: !this.state.changeToShowProduct })
+	goToHome = () => {
+		this.setState({ showRegisterPage: !this.state.showRegisterPage })
 	}
-	changeToShowLitteCar = () => {
-		this.setState({ showLittleCar: !this.state.showLittleCar })
+
+	goToProduct = () => {
+		this.setState({ showProduct: !this.state.showProduct })
+	}
+
+	goToLittleCar = () => {
+		this.setState({ showLittleCar: true, showProduct: true })
 	}
 
 	getIdOfProduct = (id) => {
@@ -30,6 +37,8 @@ export default class App extends React.Component {
 		let newList = [...this.state.boughtProducts]
 		newList.push(newBuy)
 		this.setState({ boughtProducts: newList })
+		this.setShowNotification(true)
+		setTimeout(() =>  this.setShowNotification(false), 5000)
 	}
 
 	userEnter = (login, type) => {
@@ -45,48 +54,61 @@ export default class App extends React.Component {
 		console.log(newUser)
 	}
 
-	goToBodyProduct = () => {
-		this.setState({ showRegisterPage: !this.state.showRegisterPage })
+	setShowNotification = (notification) => {
+		this.setState({ showNotification: notification })
 	}
 
 	render() {
-		const home = (
-			<Home
-				getIdOfProduct={this.getIdOfProduct}
-				changeToShowProductPage={this.changeToShowProductPage}
-			/>
-		)
-
 		const productPage = (
-			<ViewProduct
-				idOfClickedProduct={this.state.idOfClickedProduct}
-				addCar={this.addCar}
-				changeToShowLitteCar={this.changeToShowLitteCar}
-				changeToShowProductPage={this.changeToShowProductPage}
-			/>
+			<>
+				<AppBar goToLittleCar={this.goToLittleCar} />
+				{this.state.showNotification && <div>Produto adicionado ao carrinho!</div>}
+				<ViewProduct
+					idOfClickedProduct={this.state.idOfClickedProduct}
+					addCar={this.addCar}
+					goToLittleCar={this.goToLittleCar}
+					goToProduct={this.goToProduct}
+				/>
+			</>
 		)
+
 		const littleCar = (
-			<ViewLittleCar
-				changeToShowLitteCar={this.changeToShowLitteCar}
-				changeToShowProductPage={this.changeToShowProductPage}
-				boughtProducts={this.state.boughtProducts}
+			<>
+				<AppBar goToLittleCar={this.goToLittleCar} />
+				{this.state.showNotification && <div>Produto adicionado ao carrinho!</div>}
+				<ViewLittleCar
+					goToLittleCar={this.goToLittleCar}
+					goToProduct={this.goToProduct}
+					boughtProducts={this.state.boughtProducts}
 
-			/>
+				/>
+			</>
 		)
-		return (
-			<div>
-				{
-					this.state.changeToShowProduct ?
-						(!this.state.showLittleCar ? productPage : littleCar) :
-						(this.state.showRegisterPage ?
-							<Register
-								userEnter={this.userEnter}
-								goToBodyProduct={this.goToBodyProduct}
-							/> :
-							home)
-				}
+		
+		if(this.state.showProduct) {
+			if(this.state.showLittleCar) return littleCar
+			return productPage
+		}
 
-			</div>
+		if(this.state.showRegisterPage) {
+			return (
+				<Register
+					userEnter={this.userEnter}
+					goToHome={this.goToHome}
+				/>
+			)
+		}
+
+		return (
+			<>
+				<AppBar goToLittleCar={this.goToLittleCar} />
+				{this.state.showNotification && <div>Produto adicionado ao carrinho!</div>}
+				<Home
+					getIdOfProduct={this.getIdOfProduct}
+					goToProduct={this.goToProduct}
+					addCar={this.addCar}
+				/>
+			</>
 		)
 	}
 }

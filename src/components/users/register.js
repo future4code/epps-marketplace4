@@ -74,7 +74,7 @@ export default class RegisterUser extends React.Component {
                  <Button onClick={this.onClickFunction}>REGISTRAR</Button> :
                  <div>
                      <Button onClick={this.props.goToAddProduct}>Anunciar Produto</Button>
-                     <Button onClick={this.props.goToBodyProduct}>Comprar Produto</Button>
+                     <Button onClick={this.props.goToHome}>Comprar Produto</Button>
                     <p>Usuário criado com sucesso!</p>
                      </div>
 }
