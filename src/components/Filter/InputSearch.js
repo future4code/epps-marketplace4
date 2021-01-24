@@ -2,18 +2,25 @@ import React from "react"
 import styled from 'styled-components'
 
 const InputMain = styled.div`
-  background-color: #f2f2f2;
+  background-color: ${props => props.background || '#f2f2f2'};
   display: flex;
-    justify-content: center;
-    align-items: center;
+  align-items: center;
+  justify-content: center;
 `
 
 const Input = styled.input`
     padding: 5px 30px;
-    margin: 20px;
+    margin: ${props => props.margin || '0'}px;
     width: 100vh;
     outline: none;
     color: gray;
+`
+
+const Button = styled.button`
+  padding: 5px 30px;
+  text-transform: uppercase;
+  background-color: rgb(253,194,16);
+  outline: none;
 `
 
 export default class InputSearch extends React.Component {
@@ -31,13 +38,13 @@ export default class InputSearch extends React.Component {
   render () {
     return (
      <InputMain>
-        <label>Pesquisar:</label>
         <Input 
-          placeholder="Pesquisar .."
+          margin="20"
+          placeholder="Nome do Produto.."
           type="text" 
           onChange={this.handleSearch}
         />
-        <button onClick={()=>this.props.filterBySearch(this.state.InputValueName)}>Filtrar</button>            
+        <Button onClick={()=>this.props.filterBySearch(this.state.InputValueName)}>Pesquisar</Button>            
      </InputMain>
     )
   }

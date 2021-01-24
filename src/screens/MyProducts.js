@@ -1,15 +1,15 @@
 import React from 'react';
 import axios from 'axios';
 import AppBar from '../components/AppBar/AppBar'
-import InputSearch from '../components/AppBar/InputSearch'
 
 import styled from 'styled-components'
 
 const DivInput = styled.div`
     margin: 50px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 0 50px;
+    text-transform: uppercase;
+    border: 1px solid rgba(3,27,78,.1);
 `
 
 const ProductMain = styled.div`
@@ -38,20 +38,22 @@ const Text = styled.span`
     text-align: ${props => props.align};
     margin: ${props => props.margin}px;
     height: ${props => props.height}px;
+    align-items: center;
 
 `
 
 const Button = styled.button`
-    background: #ff0000;
-    border: 1px solid #ff0000;
+    background-color: ${props => props.background || 'rgb(255 60 60)'};
+    border: ${props => props.border || 'rgb(255 60 60)'};
     outline: none;
     padding: 5px 40px;
-    color: white;
+    margin: 20px;
+    color: ${props => props.color || 'white'};
     transition: border-radius ease 0.5s;
     
     :hover {
-        background: rgb(255 60 60);
-        border: 1px solid rgb(255 60 60);
+        background-color: ${props => props.background || 'rgb(255 60 60)'};
+        border: ${props => props.border || 'rgb(255 60 60)'};
         border-radius: 20px;
     }
 `
@@ -92,7 +94,13 @@ export default class ViewAddProduct extends React.Component {
             <div>
                 <AppBar />
                 <DivInput>
-                    <InputSearch />
+                    <Text fontSize="28">Produtos Cadastrados da Loja</Text>
+                    <Button 
+                        background="yellow"
+                        border="1px solid rgba(3,27,78,.1)"
+                        color="black"
+                        onClick={()=>this.props.onchange('Home')}
+                    > INICIO</Button>
                 </DivInput>
                 <ProductMain>
                 {this.state.products &&
@@ -128,14 +136,18 @@ export default class ViewAddProduct extends React.Component {
 
                                 
 
-                                <Button onClick={() => this.deleteProduct(product.id)}>DELETA</Button>
+                                <Button 
+                                    onClick={() => this.deleteProduct(product.id)}
+                                    background="#ff0000"
+                                    border="1px solid #ff0000"
+                                >DELETA</Button>
                             </ProducContainer>
                         )
                     })
 
                 }
                 </ProductMain>
-                <button onClick={()=>this.props.onchange('Home')}></button>
+                
             </div>
         )
     }
