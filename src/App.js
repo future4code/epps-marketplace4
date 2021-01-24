@@ -14,7 +14,7 @@ export default class App extends React.Component {
 		idOfClickedProduct: "",
 		changeToShowProduct: false,
 		boughtProducts: [],
-		page: "Home",
+		page: "Register",
 		user: {},
 
 	}
@@ -71,9 +71,14 @@ export default class App extends React.Component {
 	// ADICIONAR AO CARRINHO 
 
 	addCar = (id, quantity) => {
+		console.log(this.state.user)
 		let newBuy = { id: id, quantity: quantity }
-		let newList = [...this.state.user.boughtProducts]
-		newList.push(newBuy)
+		let newList = this.state.user.boughtProducts
+
+		if (newList) {
+			newList.push(newBuy)
+		}
+
 		this.setState({ boughtProducts: newList })
 
 		let newUser = this.state.user
@@ -135,7 +140,7 @@ export default class App extends React.Component {
 			case 'MyProducts':
 				return (<MyProducts
 					changePage={this.changePage}
-					deleteProduct= {this.deleteProduct}
+					deleteProduct={this.deleteProduct}
 					local={this.state.local}
 				/>)
 				break;

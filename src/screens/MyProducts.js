@@ -99,7 +99,7 @@ export default class ViewAddProduct extends React.Component {
                         background="yellow"
                         border="1px solid rgba(3,27,78,.1)"
                         color="black"
-                        onClick={()=>this.props.onchange('Home')}
+                        onClick={()=>this.props.changePage('Home')}
                     > INICIO</Button>
                 </DivInput>
                 <ProductMain>
