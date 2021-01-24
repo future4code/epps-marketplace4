@@ -2,178 +2,187 @@ import React from 'react';
 import Home from './screens/Home';
 import ViewProduct from './screens/ViewProduct';
 import ViewLittleCar from './screens/ViewLittleCar';
-import Login from './components/users/login'
-import Register from './components/users/register'
-import AppBar from './components/AppBar/AppBar'
+import ViewUsers from './screens/ViewUsers'
+import ViewAddProduct from './screens/ViewAddProduct'
+import ViewSuccess from './screens/ViewSuccess';
+import MyProducts from './screens/MyProducts';
+import axios from 'axios';
 
 export default class App extends React.Component {
 	state = {
+		local: [],
 		idOfClickedProduct: "",
-		showProduct: false,
+		changeToShowProduct: false,
 		boughtProducts: [],
-		showLittleCar: false,
-		showRegisterPage: true,
-		showNotification: false
+		page: "Register",
+		user: {},
+
 	}
 
-	goToHome = () => {
-		this.setState({ showRegisterPage: !this.state.showRegisterPage })
+
+	componentDidMount = () => {
+		this.getLocalStorage()
 	}
 
-	goToProduct = () => {
-		this.setState({ showProduct: !this.state.showProduct })
+	getLocalStorage = () => {
+		const stringNew = localStorage.getItem("users")
+		let newListOfQueries = JSON.parse(stringNew)
+		this.setState({ local: newListOfQueries })
+	}
+	saveInLocalStorage = (users) => {
+		localStorage.setItem("users", JSON.stringify(users))
 	}
 
-	goToLittleCar = () => {
-		this.setState({ showLittleCar: true, showProduct: true })
+	checkUser = (login, code, type) => {
+		let count = 0
+		if (this.state.local) {
+			this.state.local.map(user => {
+				if (user.login === login && user.code === code) {
+					this.setState({ user: user })
+					count += 1
+				}
+			})
+			if (count < 1) {
+				this.userEnter(login, code, type)
+			}
+		} else {
+			this.userEnter(login, code, type)
+		}
+
 	}
 
 	getIdOfProduct = (id) => {
 		this.setState({ idOfClickedProduct: id })
+		this.getBoughtProducts()
+	}
+
+	getBoughtProducts = () => {
+		let newList = this.state.user.boughtProducts
+		this.setState({ boughtProducts: newList })
+		console.log(newList, "aqui")
 	}
 
 	addCar = (id, quantity) => {
 		let newBuy = { id: id, quantity: quantity }
-		let newList = [...this.state.boughtProducts]
+		let newList = [...this.state.user.boughtProducts]
 		newList.push(newBuy)
 		this.setState({ boughtProducts: newList })
-		this.setShowNotification(true)
-		setTimeout(() =>  this.setShowNotification(false), 5000)
+
+		let newUser = this.state.user
+		newUser.boughtProducts = newList
+		this.setState({ user: newUser })
+		console.log(this.state.user)
+
+		this.upDateUserOnLocalStorage()
+		this.saveInLocalStorage(this.state.local)
 	}
 
-	userEnter = (login, type) => {
+	upDateUserOnLocalStorage = () => {
+		let provisoryList = this.state.local
+		provisoryList.map(user => {
+			if (user.id === this.state.user.id) {
+				user = this.state.user
+			}
+		})
+
+	}
+
+	userEnter = (login, code, type) => {
 		let newUser = {
 			id: Date(),
 			dateOfCreation: Date(),
 			login: login,
+			code: code,
 			type: type,
 			boughtProducts: [],
 			createdProducts: []
 		}
-		this.setState({ newUser: newUser })
-		console.log(newUser)
+
+		this.setState({ user: newUser })
+		this.updateLocal(newUser)
 	}
 
-	setShowNotification = (notification) => {
-		this.setState({ showNotification: notification })
+	updateLocal = (newUser) => {
+		let listOfUsers = []
+		if (this.state.local) {
+			listOfUsers = [...this.state.local]
+		}
+		listOfUsers.push(newUser)
+		this.saveInLocalStorage(listOfUsers)
+	}
+
+	renderPages = () => {
+		switch (this.state.page) {
+			case 'Register':
+				return (<ViewUsers
+					userEnter={this.userEnter}
+					changePage={this.changePage}
+					checkUser={this.checkUser}
+				/>)
+				break;
+			case 'MyProducts':
+				return (<MyProducts
+					changePage={this.changePage}
+					deleteProduct= {this.deleteProduct}
+					local={this.state.local}
+				/>)
+				break;
+			case 'Home':
+				return (<Home
+					getIdOfProduct={this.getIdOfProduct}
+					changePage={this.changePage}
+				/>)
+				break;
+			case 'RegisterProduct':
+				return (<ViewAddProduct
+					changePage={this.changePage}
+				/>)
+				break;
+			case 'ViewLittleCar':
+				return (<ViewLittleCar
+					changePage={this.changePage}
+					boughtProducts={this.state.boughtProducts}
+				/>)
+				break;
+			case 'ViewProduct':
+				return (<ViewProduct
+					changePage={this.changePage}
+					idOfClickedProduct={this.state.idOfClickedProduct}
+					addCar={this.addCar}
+				/>)
+				break;
+			case 'ViewSuccess':
+				return (<ViewSuccess
+					changePage={this.changePage}
+				/>)
+				break;
+			default:
+				return (<Home
+					getIdOfProduct={this.getIdOfProduct}
+					changePage={this.changePage}
+				/>)
+				break;
+		}
+	}
+
+	changePage = (page) => {
+		this.setState({ page: page })
+	}
+
+	deleteProduct = (id) => {
+		axios.del(`https://us-central1-labenu-apis.cloudfunctions.net/eloFourTwo/products/${id}`)
+			.then((res) => { console.log(res) })
+			.catch(err => { console.log(err) })
 	}
 
 	render() {
-		const productPage = (
-			<>
-				<AppBar goToLittleCar={this.goToLittleCar} />
-				{this.state.showNotification && <div>Produto adicionado ao carrinho!</div>}
-				<ViewProduct
-					idOfClickedProduct={this.state.idOfClickedProduct}
-					addCar={this.addCar}
-					goToLittleCar={this.goToLittleCar}
-					goToProduct={this.goToProduct}
-				/>
-			</>
-
-// 	renderPages = () => {
-// 		switch (this.state.page) {
-// 			case 'Register':
-// 				return (<ViewUsers
-// 					userEnter={this.userEnter}
-// 					changePage={this.changePage}
-// 				/>)
-// 				break;
-// 			case 'Home':
-// 				return (<Home
-// 					getIdOfProduct={this.getIdOfProduct}
-// 					changePage={this.changePage}
-// 				/>)
-// 				break;
-// 			case 'RegisterProduct':
-// 				return (<RegisterProduct
-// 					changePage={this.changePage}
-// 				/>)
-// 				break;
-// 			case 'ViewLittleCar':
-// 				return (<ViewLittleCar
-// 					changePage={this.changePage}
-// 					boughtProducts={this.state.boughtProducts}
-// 				/>)
-// 				break;
-// 			case 'ViewProduct':
-// 				return (<ViewProduct
-// 					changePage={this.changePage}
-// 					idOfClickedProduct={this.state.idOfClickedProduct}
-// 					addCar={this.addCar}
-// 				/>)
-// 				break;
-// 			case 'ViewSuccess':
-// 				return (<ViewSuccess
-// 					changePage={this.changePage}
-// 				/>)
-// 				break;
-// 			default:
-// 				return (<Home
-// 					getIdOfProduct={this.getIdOfProduct}
-// 					changePage={this.changePage}
-// 				/>)
-// 				break;
-// 		}
-// 	}
-
-// 	changePage = (page) => {
-// 		this.setState({ page: page })
-// 		console.log(page)
-// 	}
-
-// 	render() {
-// 		const printPage = this.renderPages()
-// 		const home = (
-// 			<Home
-// 				getIdOfProduct={this.getIdOfProduct}
-// 				changePage={this.changePage}
-// 			/>
-// 		)
-
-// 		const productPage = (
-// 			<ViewProduct
-// 				idOfClickedProduct={this.state.idOfClickedProduct}
-// 				addCar={this.addCar}
-// 			/>
-		)
-
-		const littleCar = (
-			<>
-				<AppBar goToLittleCar={this.goToLittleCar} />
-				{this.state.showNotification && <div>Produto adicionado ao carrinho!</div>}
-				<ViewLittleCar
-					goToLittleCar={this.goToLittleCar}
-					goToProduct={this.goToProduct}
-					boughtProducts={this.state.boughtProducts}
-				/>
-			</>
-		)
-		
-		if(this.state.showProduct) {
-			if(this.state.showLittleCar) return littleCar
-			return productPage
-		}
-
-		if(this.state.showRegisterPage) {
-			return (
-				<Register
-					userEnter={this.userEnter}
-					goToHome={this.goToHome}
-				/>
-			)
-		}
-
+		const printPage = this.renderPages()
 		return (
-			<>
-				<AppBar goToLittleCar={this.goToLittleCar} />
-				{this.state.showNotification && <div>Produto adicionado ao carrinho!</div>}
-				<Home
-					getIdOfProduct={this.getIdOfProduct}
-					goToProduct={this.goToProduct}
-					addCar={this.addCar}
-				/>
-			</>
+			<div>
+				{printPage}
+
+
+			</div>
 		)
 	}
 }

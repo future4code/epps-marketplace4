@@ -72,9 +72,15 @@ export default class VisibleProduct extends React.Component {
         paymentMethod: 'A',
         category: 'a',
         photos: [],
-        installments: 0
+        installments: 0,
+        local: []
 
     }
+
+    componentDidMount = () =>{
+        this.getLocalStorage()
+    }
+    
 
 
     onchangeNameProduct = (event) => {
@@ -117,7 +123,8 @@ export default class VisibleProduct extends React.Component {
         axios.post('https://us-central1-labenu-apis.cloudfunctions.net/eloFourTwo/products', body)
             .then((res) => {
                 console.log(res.data)
-
+                // this.updateUser(res.data.products.id)
+                console.log(res.config.data)
                 this.getProduct()
                 alert('Produto cadastrado com Sucesso')
             }).catch((err) => {
@@ -129,9 +136,8 @@ export default class VisibleProduct extends React.Component {
     getProduct = () => {
         axios.get('https://us-central1-labenu-apis.cloudfunctions.net/eloFourTwo/products')
             .then((res) => {
-
-                console.log(res.data)
                 console.log('Produto cadastrado com Sucesso')
+
             }).catch((err) => {
 
                 console.log('Não foi possivel cadastrar o Produto')
@@ -139,11 +145,43 @@ export default class VisibleProduct extends React.Component {
 
     }
 
+    onClickFunction = () =>{
+        this.createProduct()
+    }
+    getLocalStorage = () => {
+		const stringNew = localStorage.getItem("users")
+		let newListOfQueries = JSON.parse(stringNew)
+		this.setState({ local: newListOfQueries })
+	}
+	saveInLocalStorage = (users) => {
+		localStorage.setItem("users", JSON.stringify(users))
+    }
+    
+    updateUser = (id) =>{
+        console.log(id)
+        let provisoryList = this.props.user.createdProducts
+        provisoryList.push(id)
+        let newUser = this.props.user
+        newUser.createdProducts = provisoryList 
 
+        this.updateUserInLocal(newUser)
+        this.saveInLocalStorage(this.state.local)
+    }
+
+    updateUserInLocal = (newUser) =>{
+        let local = this.state.local
+        if(this.state.local){
+            local.map(user=>{
+                if(user.id === this.props.user.id){
+                    user = newUser
+                }
+            })
+        }
+    }
 
     render() {
-
-
+        // console.log('ver Aqui', this.state.local)
+        
 
         return (
             <Container>
@@ -235,7 +273,8 @@ export default class VisibleProduct extends React.Component {
 
                     </SepareDiv>
 
-                    <ButtonRegisterProduct onClick={this.createProduct} >Cadastrar Produto</ButtonRegisterProduct>
+                    <ButtonRegisterProduct onClick={this.onClickFunction} >Cadastrar Produto</ButtonRegisterProduct>
+                    <ButtonRegisterProduct onClick={()=>this.props.changePage('MyProducts')} >Meus Produtos Cadastrados</ButtonRegisterProduct>
                     <ButtonRegisterProduct onClick={()=>this.props.changePage('Home')} >Página Inicial</ButtonRegisterProduct>
 
 

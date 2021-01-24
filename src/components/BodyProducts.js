@@ -193,11 +193,12 @@ filterBySearch = (nameProducts) => {
 
 onClickProduct = (id) => {
     this.props.getIdOfProduct(id)
-    this.props.goToProduct()
+    this.props.changePage('ViewProduct')
 }
 
 
 render() {
+    console.log(this.state.products)
     return (
 
     <Container>
