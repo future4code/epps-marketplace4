@@ -1,27 +1,59 @@
 import React from 'react';
 import axios from 'axios';
 import AppBar from '../components/AppBar/AppBar'
+import InputSearch from '../components/AppBar/InputSearch'
 
 import styled from 'styled-components'
 
+const DivInput = styled.div`
+    margin: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
 const ProductMain = styled.div`
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin: 10px;
-    text-align: center;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    margin: 50px;
 `
 
 const ProducContainer = styled.div`
+    height: auto;
     padding: 10px;
+    box-shadow: 0 2px 4px rgba(3,27,78,.1);
+    border: 1px solid rgba(3,27,78,.1);
+`
+
+const Img = styled.img`
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+`
+const Text = styled.span`
+    display: flex;
+    font-size: ${props => props.fontSize}px;
+    font-weight: ${props => props.bold};
+    text-align: ${props => props.align};
+    margin: ${props => props.margin}px;
+    height: ${props => props.height}px;
+
 `
 
 const Button = styled.button`
-    background: red;
-    border: none;
+    background: #ff0000;
+    border: 1px solid #ff0000;
     outline: none;
     padding: 5px 40px;
     color: white;
+    transition: border-radius ease 0.5s;
+    
+    :hover {
+        background: rgb(255 60 60);
+        border: 1px solid rgb(255 60 60);
+        border-radius: 20px;
+    }
 `
 
 export default class ViewAddProduct extends React.Component {
@@ -59,17 +91,43 @@ export default class ViewAddProduct extends React.Component {
         return (
             <div>
                 <AppBar />
+                <DivInput>
+                    <InputSearch />
+                </DivInput>
                 <ProductMain>
                 {this.state.products &&
                     this.state.products.map(product => {
                         return (
 
                             <ProducContainer key={product.id}>
-                                <img src={product.photos[0]} />
-                                <div>Nome: {product.name}</div>
-                                <p>Descrição: {product.description}</p>
-                                <p>Preço: R$ {product.price},00</p>
-                                <p> Categoria: {product.category}</p>
+                                
+                                <Text 
+                                    fontSize="10" 
+                                >
+                                     Categoria: {product.category}</Text>
+
+                                <Text 
+                                    fontSize="16" 
+                                    bold="bold"
+                                    align="right"
+                                >
+                                    {product.name}</Text>
+
+                                    <Img src={product.photos[0]} />
+
+                                <Text 
+                                    fontSize="" align="left" height="80"
+                                >
+                                    <i>{product.description}</i></Text>
+
+                                <Text 
+                                    align="left" margin="20"
+                                >
+                                     R$ <Text fontSize="18"> {product.price},00</Text>
+                                </Text>
+
+                                
+
                                 <Button onClick={() => this.deleteProduct(product.id)}>DELETA</Button>
                             </ProducContainer>
                         )

@@ -14,10 +14,7 @@ export default class App extends React.Component {
 		idOfClickedProduct: "",
 		changeToShowProduct: false,
 		boughtProducts: [],
-		// page: "Home",
-		// page: "Register",
-		page: "RegisterProduct",
-		// page: "MyProducts",
+		page: "Home",
 		user: {},
 
 	}
