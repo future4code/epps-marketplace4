@@ -6,7 +6,7 @@ export default class MainSuccess extends React.Component {
             <div>
                 <div>Icone </div>
                 <div>COMPRA REALIZADA COM SUCESSO!</div>
-                <button>VOLTE À TELA INICIAL</button>
+                <button onClick={()=>this.props.changePage('home')}>VOLTE À TELA INICIAL</button>
 
             </div>
         )
