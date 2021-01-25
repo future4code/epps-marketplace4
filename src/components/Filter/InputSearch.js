@@ -17,10 +17,17 @@ const Input = styled.input`
 `
 
 const Button = styled.button`
-  padding: 5px 30px;
-  text-transform: uppercase;
-  background-color: rgb(253,194,16);
-  outline: none;
+    padding: 10px;
+    margin: 5px;
+    background-color: ${props => props.background || '#f28c0f'};
+    color: #fff;
+    border: none;
+    outline: none;
+    font-weight: bold;
+
+    :hover {
+        background-color: #f2b366;
+    }
 `
 
 export default class InputSearch extends React.Component {

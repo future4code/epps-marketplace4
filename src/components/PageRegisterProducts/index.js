@@ -3,66 +3,71 @@ import styled from 'styled-components'
 import axios from 'axios'
 
 const Container = styled.div`
-   width: 100vw;
+   height: 100%;
    min-height: 100vh;
+   background-color: #BFB965;
 `
 
 const ContainerRegisterProduct = styled.div`
     margin:auto;
-    margin-top: 10vh;
-    width:80%;
-    height:80vh;
-    border:1px solid black;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:space-evenly;
-`
-const InputProduct = styled.input`
-    width: 60vw;
-    margin-bottom:10px;
-`
-const Select = styled.select`
-    width: 60vw;
-    margin-bottom:10px;
-    padding:6px;
+    position: relative;
+    top: 20px;
+    width: 100vh;
+    height:90vh;
+    background-color: #fff;
+    box-shadow: 3px 10px 40px rgba(3,27,78,.1);
+    display:grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(10, 1fr); 
 `
 
 const SepareDiv = styled.div`
-    display:flex;
-    flex-direction:column;
+    display:${props => props.display};
+    flex-direction: column;
+    grid-template-columns: ${props => props.columns || '1fr'}; 
+    align-items:center;
+    justify-content: center;
+    width: ${props => props.width};
     
 `
 
-const ProductPayment = styled.div`
-    width:50%;
-    display:flex;
-    align-items:center;
-`
-const InputProdutPayment = styled.input`
-    width: 60vw;
+const InputProduct = styled.input`
+    width: 60vh;
     margin-bottom:10px;
+    border: 1px solid #f2b366;
+    color: gray;
 `
-const DetailsPayment = styled.div`
-    width:50%;
-    display:flex;
-    justify-content:row;
-    align-items:center;
-`
-const InputLinkPhoto = styled.input`
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    width:50%;
-`
-const ButtonRegisterProduct = styled.button`
-    width:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+const Select = styled.select`
+    width: 60vh;
+    margin-bottom:10px;
+    padding:6px;
+    border: 1px solid #f2b366;
+    color: gray;
 `
 
+const InputProdutPayment = styled.input`
+    width: 60vh;
+    margin-bottom:10px;
+    border: 1px solid #f2b366;
+    color: gray;
+`
+
+const Button = styled.button`
+    padding: 10px;
+    margin: 5px;
+    background-color: ${props => props.background || '#f28c0f'};
+    color: #fff;
+    border: none;
+    outline: none;
+    font-weight: bold;
+
+    :hover {
+        background-color: #f2b366;
+    }
+`
+const Text = styled.h2`
+    text-align: center;
+`
 export default class VisibleProduct extends React.Component {
     state = {
         products: [],
@@ -180,96 +185,105 @@ export default class VisibleProduct extends React.Component {
         return (
             <Container>
                 <ContainerRegisterProduct>
-                    <h2>Cadastro de  Produto</h2>
-                    <SepareDiv>
-                        <label>Nome do produto</label>
-                        <InputProduct
-                            value={this.state.name}
-                            onChange={this.onchangeNameProduct}
-                        />
-                        <label>Descrição</label>
-
-                        <InputProduct
-                            value={this.state.description}
-                            onChange={this.onchangeDescriptionProduct}
-                        />
+                    <Text>Cadastro de  Produto</Text>
+                    <SepareDiv  display="flex" width="100%">
+                        <SepareDiv display="grid" width="50%">
+                            <label>Nome do produto</label>
+                            <InputProduct
+                                value={this.state.name}
+                                onChange={this.onchangeNameProduct}
+                            />
+                        </SepareDiv>
+                        <SepareDiv display="grid" width="50%">
+                            <label>Descrição</label>
+                            <InputProduct
+                                value={this.state.description}
+                                onChange={this.onchangeDescriptionProduct}
+                            />
+                        </SepareDiv>
                     </SepareDiv>
-                    <SepareDiv>
+                    <SepareDiv display="flex" width="100%">
 
-                        <label>Preço do produto</label>
-                        <InputProdutPayment
-                            type="number" min="0.00" max="10000.00" step="0.01"
-                            value={this.state.price}
-                            onChange={this.onchangePriceProduct}
-                        />
-
-                        <label>Método de pagamento</label>
-                        <Select
-                            value={this.state.paymentMethod}
-                            onChange={this.onchangePaymentMethod}
-                        >
-                            <option value={'A'}> Selecione</option>
-                            <option value={'B'}>Boleto</option>
-                            <option value={'C'}>Cartão de crédito</option>
-                            <option value={'D'}>Cartão de débito</option>
-                        </Select>
-
-                    </SepareDiv>
-                    <SepareDiv>
-
-                        <label>Categoria do produto</label>
-                        <Select
-                            type="number"
-                            value={this.state.category}
-                            onChange={this.onchangeCategory}
-                        >
-                            <option value={'a'}>Selecione</option>
-                            <option value={'b'}>Assessórios</option>
-                            <option value={'c'}>Aniversário e Festa</option>
-                            <option value={'d'}>Bebê</option>
-                            <option value={'f'}>Bijuterias</option>
-                            <option value={'g'}>Bolsas e carteiras</option>
-                            <option value={'h'}>Casa</option>
-                            <option value={'i'}>Decoração</option>
-                            <option value={'j'}>Doces</option>
-                            <option value={'k'}>Infantil</option>
-                            <option value={'l'}>Jogos e Brinquedos</option>
-                            <option value={'m'}>Pets</option>
-                            <option value={'n'}>Roupas</option>
-                            <option value={'o'}>Beleza</option>
-
-
-                        </Select>
-                        <label>Número de parcelas</label>
-                        <Select
-                            value={this.state.installments}
-                            onChange={this.onchangeInstallments}
-                        >
-                            <option value={0}>Selecione</option>
-                            <option value={1}>1x sem juros</option>
-                            <option value={2}>2x sem juros</option>
-                            <option value={3}>3x sem juros</option>
-                            <option value={4}>4x sem juros</option>
-                            <option value={5}>5x sem juros</option>
-                            <option value={6}>6x sem juros</option>
-                            <option value={7}>7x sem juros</option>
-                            <option value={8}>8x sem juros</option>
-                            <option value={9}>9x sem juros</option>
-                            <option value={10}>10x sem juros</option>
-                        </Select>
-
-                        <label>Link da Foto</label>
-                        <InputProduct
-                            value={this.state.photos}
-                            onChange={this.onchangeLinkPhoto}
-                        />
+                        <SepareDiv display="grid" width="50%">
+                            <label>Preço do produto</label>
+                            <InputProdutPayment
+                                type="number" min="0.00" max="10000.00" step="0.01"
+                                value={this.state.price}
+                                onChange={this.onchangePriceProduct}
+                            />
+                        </SepareDiv>
+                        <SepareDiv display="grid" width="50%">
+                            <label>Método de pagamento</label>
+                            <Select
+                                value={this.state.paymentMethod}
+                                onChange={this.onchangePaymentMethod}
+                            >
+                                <option value={'A'}> Selecione</option>
+                                <option value={'B'}>Boleto</option>
+                                <option value={'C'}>Cartão de crédito</option>
+                                <option value={'D'}>Cartão de débito</option>
+                            </Select>
+                        </SepareDiv>
 
                     </SepareDiv>
-
-                    <ButtonRegisterProduct onClick={this.onClickFunction} >Cadastrar Produto</ButtonRegisterProduct>
-                    <ButtonRegisterProduct onClick={()=>this.props.changePage('MyProducts')} >Meus Produtos Cadastrados</ButtonRegisterProduct>
-                    <ButtonRegisterProduct onClick={()=>this.props.changePage('Home')} >Página Inicial</ButtonRegisterProduct>
-
+                    <SepareDiv display="flex" width="100%">
+                        <SepareDiv display="grid" width="50%">
+                            <label>Categoria do produto</label>
+                            <Select
+                                type="number"
+                                value={this.state.category}
+                                onChange={this.onchangeCategory}
+                            >
+                                <option>Selecione</option>
+                                <option value={'b'}>Assessórios</option>
+                                <option value={'c'}>Aniversário e Festa</option>
+                                <option value={'d'}>Bebê</option>
+                                <option value={'f'}>Bijuterias</option>
+                                <option value={'g'}>Bolsas e carteiras</option>
+                                <option value={'h'}>Casa</option>
+                                <option value={'i'}>Decoração</option>
+                                <option value={'j'}>Doces</option>
+                                <option value={'k'}>Infantil</option>
+                                <option value={'l'}>Jogos e Brinquedos</option>
+                                <option value={'m'}>Pets</option>
+                                <option value={'n'}>Roupas</option>
+                                <option value={'o'}>Beleza</option>
+                            </Select>
+                        </SepareDiv>
+                        <SepareDiv display="grid" width="50%">
+                            <label>Número de parcelas</label>
+                            <Select
+                                value={this.state.installments}
+                                onChange={this.onchangeInstallments}
+                            >
+                                <option value={0}>Selecione</option>
+                                <option value={1}>1x sem juros</option>
+                                <option value={2}>2x sem juros</option>
+                                <option value={3}>3x sem juros</option>
+                                <option value={4}>4x sem juros</option>
+                                <option value={5}>5x sem juros</option>
+                                <option value={6}>6x sem juros</option>
+                                <option value={7}>7x sem juros</option>
+                                <option value={8}>8x sem juros</option>
+                                <option value={9}>9x sem juros</option>
+                                <option value={10}>10x sem juros</option>
+                            </Select>
+                        </SepareDiv>
+                    </SepareDiv>
+                    <SepareDiv display="flex" width="100%">
+                        <SepareDiv display="grid" width="50%">
+                            <label>Link da Foto</label>
+                            <InputProduct
+                                value={this.state.photos}
+                                onChange={this.onchangeLinkPhoto}
+                            />
+                        </SepareDiv>
+                    </SepareDiv>
+                    <SepareDiv display="grid" width="100%" columns="1fr 1fr 1fr">
+                        <Button background="#59d9d9" onClick={this.onClickFunction} >Cadastrar Produto</Button>
+                        <Button onClick={()=>this.props.changePage('MyProducts')} >Produtos Cadastrados</Button>
+                        <Button onClick={()=>this.props.changePage('Home')} >Página Inicial</Button>
+                    </SepareDiv>
 
                 </ContainerRegisterProduct>
 

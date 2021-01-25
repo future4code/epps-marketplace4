@@ -1,10 +1,19 @@
 import React from 'react';
-import axios from 'axios';
-import { Card } from '@material-ui/core';
 import Select from './Select/Select';
-import InputSearch from './InputSearch';
-import { FilterContainer,Label, Button, InputPreco, FilterDivContainer, FilterDiv } from "./styleFilter";
+import { FilterContainer,Label, InputPreco, FilterDivContainer, FilterDiv } from "./styleFilter";
+import styled from 'styled-components'
 
+const Button = styled.button`
+    color: rgb(71, 71, 71);
+    background-color: rgb(253, 194, 16);
+    border: none;
+    outline: none;
+    padding: 5px 30px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 12px;
+    height: 40px;
+`
 
 const optionsPayType = [
     { value: "all", label: "Métodos de pagamento" },
