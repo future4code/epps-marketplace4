@@ -3,7 +3,6 @@ import styled from "styled-components";
 import axios from "axios";
 import Filter from "./Filter/Filter";
 import SideBar from "./SideBar/SideBar";
-import AppBar from "./AppBar/AppBar";
 import InputSearch from "./Filter/InputSearch";
 
 const Container = styled.div`
@@ -14,7 +13,6 @@ const Container = styled.div`
     grid-template-rows: 10vh 10vh 1fr;
 `;
 const BoxBodyProducts = styled.div`
-    
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
@@ -22,6 +20,7 @@ const BoxBodyProducts = styled.div`
 `
 const BodySpan = styled.div`
     display: grid;
+    background-color: #fff;
     max-height: 300px;
     grid-template-rows: 1fr 30px auto auto;
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.161);
@@ -43,17 +42,7 @@ const Paragraph = styled.span`
     font-weight: ${props => props.bold};
     text-transform: ${props => props.uppercase};
 `
-const Button = styled.button`
-    color: rgb(71, 71, 71);
-    background-color: rgb(253, 194, 16);
-    border: none;
-    outline: none;
-    padding: 5px 30px;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-size: 12px;
-    width: 100%;
-`
+
 const Image = styled.img`
     width: 100%;
     height: 200px;
@@ -221,9 +210,9 @@ render() {
             {this.state.products.map((product) => {
                 return(
                 <BodySpan key={product.id}>                 
-                    {/* <BodyRow> */}
+                    <BodyRow>
                         <Image onClick={() => this.onClickProduct(product.id)} src={product.photos[0]} />
-                    {/* </BodyRow> */}
+                    </BodyRow>
                     <BodyRow>
                         <Paragraph fontsize="18" bold="bold" uppercase="uppercase">{product.name}</Paragraph>
                     </BodyRow>
@@ -231,9 +220,9 @@ render() {
                         <Paragraph fontsize="16">R$ {product.price},00</Paragraph>
                         <Paragraph fontsize="14">{product.installments}x de { product.installments =  product.price/product.installments} no Cartão</Paragraph>
                     </BodyRow>
-                    <BodyRow>
+                    {/* <BodyRow>
                         <Button onClick={() => this.buyProduct(product.id)}>Adicionar ao carrinho</Button>
-                    </BodyRow>
+                    </BodyRow> */}
                 </BodySpan>
                 )
             })

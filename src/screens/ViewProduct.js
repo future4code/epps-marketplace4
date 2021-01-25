@@ -1,12 +1,17 @@
 import React from 'react'
 import axios from 'axios'
-import style from 'styled-components'
+import styled from 'styled-components'
 
-const ViewProductsContainer = style.div`
-    background-color: red;
+const ViewProductsContainer = styled.div`
+    height: 100vh;
+    background-color: #BFB965;
 `
 
-export default class ViewBuyProducts extends React.Component {
+const ViewProduct = styled.div`
+    border: 1px solid red;
+`
+
+export default class dViewBuyProducts extends React.Component {
     state = {
         products: [],
         numberOfProducts: 1
@@ -43,8 +48,8 @@ export default class ViewBuyProducts extends React.Component {
                 {this.state.products.map((product)=>{
                     if(product.id === this.props.idOfClickedProduct)
                     return(
-                        <div key={product.id}>
-                        <img src={product.photos[0]} />
+                        <ViewProduct key={product.id}>
+                            <img src={product.photos[0]} />
                             <div>{product.name}</div>
                             <p>{product.description}</p>
                             <p>{product.price}</p>
@@ -52,7 +57,7 @@ export default class ViewBuyProducts extends React.Component {
                             <p>{product.paymentMethod}</p>
                             <p>{product.category}</p>
                             <p>{product.installments}</p>
-                            </div>
+                        </ViewProduct>
                     )
                 })}
                 
