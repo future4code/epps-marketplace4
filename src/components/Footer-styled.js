@@ -41,9 +41,6 @@ export const SectionLogo = styled.section`
 
 `
 export const ImgLogo = styled.img`
-width: 20%;
-
-
-
+    width: 20%;
 `
 
